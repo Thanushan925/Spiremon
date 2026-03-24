@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://5myqc5du7w2p"]
+
+[ext_resource type="Script" uid="uid://ctr5vc7hf5do3" path="res://scripts/battle/replace_move_scene.gd" id="1_i5o3j"]
+
+[node name="ReplaceMoveScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_i5o3j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ReplaceMove" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Replace a Move"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Move1" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Move2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Move3" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Move4" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="NewMove" type="Label" parent="VBoxContainer"]
+layout_mode = 2

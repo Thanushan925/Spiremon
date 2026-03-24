@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://cpcbgk33a6t62"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_7v084"]
+[ext_resource type="Resource" uid="uid://datxl8yioffg1" path="res://resources/statuses/burn.tres" id="2_nqy62"]
+
+[resource]
+script = ExtResource("1_7v084")
+name = "Fire Punch"
+damage = 7
+cost = 2
+status = ExtResource("2_nqy62")
+status_chance = 0.3

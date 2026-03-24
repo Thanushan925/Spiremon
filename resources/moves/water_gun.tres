@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://hhjdbu6xcba4"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_vlx8f"]
+
+[resource]
+script = ExtResource("1_vlx8f")
+name = "Water Gun"
+damage = 6
+cost = 1
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"

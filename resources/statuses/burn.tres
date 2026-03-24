@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://datxl8yioffg1"]
+
+[ext_resource type="Script" uid="uid://chmsy3qtfu470" path="res://scripts/battle/status_effect.gd" id="1_dlwbn"]
+
+[resource]
+script = ExtResource("1_dlwbn")
+name = "Burn"
+metadata/_custom_type_script = "uid://chmsy3qtfu470"

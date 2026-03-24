@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://coiryv8qljxqd"]
+
+[ext_resource type="Script" uid="uid://d3xwvw4xiwwci" path="res://scripts/core/main_menu.gd" id="1_fsom3"]
+[ext_resource type="FontFile" uid="uid://cti85xhl5g8mr" path="res://assets/fonts/alagard.ttf" id="2_0ebjn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ob46e"]
+font = ExtResource("2_0ebjn")
+font_size = 100
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_fsom3")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Spiremon"
+label_settings = SubResource("LabelSettings_ob46e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start Run"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
