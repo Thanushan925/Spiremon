@@ -18,7 +18,7 @@ extends Control
 
 @onready var energy_label = $VBoxContainer/Energy
 
-var player_hp = 30
+var player_hp = 0
 var enemy_hp = 20
 
 var player_turn = true
@@ -64,6 +64,8 @@ func apply_status_to_target(status_list: Array, new_status: StatusEffect, target
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	player_hp = RunManager.player_hp
+	RunManager.player_hp = player_hp
 	load_moves()
 	scale_enemy()
 	update_ui()
@@ -133,6 +135,7 @@ func enemy_turn():
 	
 	var damage = 4
 	player_hp -= damage
+	RunManager.player_hp = player_hp
 	
 	battle_log.text = "Enemy dealt " + str(damage) + " damage!"
 	
@@ -152,6 +155,7 @@ func check_battle_end() -> bool:
 		get_tree().change_scene_to_file("res://scenes/reward/reward_scene.tscn")
 		return true
 	elif player_hp <= 0:
+		RunManager.player_hp = 0
 		print("Player Loses")
 		get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 		return true
@@ -197,6 +201,7 @@ func apply_status_effects(status_list: Array, is_player: bool):
 		if status.damage_per_turn > 0:
 			if is_player:
 				player_hp -= status.damage_per_turn
+				RunManager.player_hp = player_hp
 				add_log("You took " + str(status.damage_per_turn) + " damage from " + status.name + "!")
 			else:
 				enemy_hp -= status.damage_per_turn

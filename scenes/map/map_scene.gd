@@ -37,17 +37,20 @@ func generate_nodes():
 
 func setup_buttons():
 	for i in range(buttons.size()):
+		if buttons[i].pressed.is_connected(_on_map_button_pressed):
+			buttons[i].pressed.disconnect(_on_map_button_pressed)
+		
 		if i < current_nodes.size():
 			var node_type = current_nodes[i]
 			buttons[i].visible = true
 			buttons[i].text = get_node_name(node_type)
-			if buttons[i].pressed.is_connected(_on_button_pressed):
-				buttons[i].pressed.disconnect(_on_button_pressed)
-			buttons[i].pressed.connect(_on_button_pressed.bind(node_type))
+			buttons[i].set_meta("node_type", node_type)
+			buttons[i].pressed.connect(_on_map_button_pressed.bind(buttons[i]))
 		else:
 			buttons[i].visible = false
 
-func _on_button_pressed(node_type):
+func _on_map_button_pressed(button):
+	var node_type = button.get_meta("node_type")
 	on_node_selected(node_type)
 
 func get_node_name(node_type):
@@ -67,6 +70,9 @@ func on_node_selected(node_type):
 		NodeType.BATTLE:
 			get_tree().change_scene_to_file("res://scenes/battle/battle_scene.tscn")
 		NodeType.HEAL:
-			print("Heal selected")
+			RunManager.player_hp = RunManager.max_player_hp
+			print("Healed to full HP")
+			generate_nodes()
+			setup_buttons()
 		NodeType.UPGRADE:
 			print("Upgrade selected")

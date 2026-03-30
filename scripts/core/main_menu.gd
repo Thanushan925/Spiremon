@@ -10,6 +10,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_start_pressed():
+	RunManager.reset_run()
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
 
 func _on_quit_pressed():
