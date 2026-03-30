@@ -5,4 +5,7 @@
 [resource]
 script = ExtResource("1_dlwbn")
 name = "Burn"
+damage_per_turn = 2
+apply_message = "\"{target} is burned!\""
+refresh_message = "\"{target}'s Burn was refreshed!\""
 metadata/_custom_type_script = "uid://chmsy3qtfu470"

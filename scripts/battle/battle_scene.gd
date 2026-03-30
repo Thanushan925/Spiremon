@@ -2,6 +2,8 @@ extends Control
 
 @onready var player_hp_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerHP
 @onready var enemy_hp_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyHP
+@onready var player_status_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerStatus
+@onready var enemy_status_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyStatus
 
 @onready var move_buttons = [
 	$VBoxContainer/GridContainer/Move1,
@@ -35,6 +37,29 @@ func scale_enemy():
 
 func add_log(text: String):
 	battle_log.text += text + "\n"
+	
+func format_status_message(template: String, target_name: String, status_name: String) -> String:
+	return template.replace("{target}", target_name).replace("{status}", status_name)
+	
+func get_status_text(status_list: Array) -> String:
+	if status_list.is_empty():
+		return "Status: None"
+	
+	var parts = []
+	for status in status_list:
+		parts.append(status.name + " (" + str(status.duration) + ")")
+	
+	return "Status: " + ", ".join(parts)
+	
+func apply_status_to_target(status_list: Array, new_status: StatusEffect, target_name: String):
+	for status in status_list:
+		if status.name == new_status.name:
+			status.duration = new_status.duration
+			add_log(format_status_message(status.refresh_message, target_name, status.name))
+			return
+	
+	status_list.append(new_status)
+	add_log(format_status_message(new_status.apply_message, target_name, new_status.name))
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -93,9 +118,7 @@ func player_attack(move_index):
 	if move.status != null:
 		if randf() <= move.status_chance:
 			var new_status = move.status.duplicate()
-			enemy_statuses.append(new_status)
-			add_log("Enemy is burned!")
-	
+			apply_status_to_target(enemy_statuses, new_status, "Enemy")
 	
 	if check_battle_end():
 		return
@@ -139,6 +162,8 @@ func update_ui():
 	player_hp_label.text = "HP: " + str(player_hp)
 	enemy_hp_label.text = "HP: " + str(enemy_hp)
 	energy_label.text = "Energy: " + str(current_energy) + "/" + str(max_energy)
+	player_status_label.text = get_status_text(player_statuses)
+	enemy_status_label.text = get_status_text(enemy_statuses)
 	
 	for i in range(move_buttons.size()):
 		if i < player_moves.size():
@@ -167,17 +192,17 @@ func _on_end_turn_pressed():
 	apply_status_effects(enemy_statuses, false)
 	enemy_turn()
 
-func apply_status_effects(status_list, is_player: bool):
+func apply_status_effects(status_list: Array, is_player: bool):
 	for status in status_list:
-		if status.name == "Burn":
+		if status.damage_per_turn > 0:
 			if is_player:
 				player_hp -= status.damage_per_turn
-				add_log("You took " + str(status.damage_per_turn) + " burn damage!")
+				add_log("You took " + str(status.damage_per_turn) + " damage from " + status.name + "!")
 			else:
 				enemy_hp -= status.damage_per_turn
-				add_log("Enemy took " + str(status.damage_per_turn) + " burn damage!")
-			
-			status.duration -= 1
+				add_log("Enemy took " + str(status.damage_per_turn) + " damage from " + status.name + "!")
+		
+		status.duration -= 1
 	
 	for i in range(status_list.size() - 1, -1, -1):
 		if status_list[i].duration <= 0:
