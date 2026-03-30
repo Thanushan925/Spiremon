@@ -46,7 +46,13 @@ func _on_move_selected(move: Move):
 	RunManager.add_move(move)
 	
 	if RunManager.pending_move == null:
+		RunManager.set_map_message(
+			RunManager.build_learned_move_message(move.name)
+		)
 		get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
 
 func _on_skip_pressed():
+	RunManager.set_map_message(
+		RunManager.build_skipped_reward_message()
+	)
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")

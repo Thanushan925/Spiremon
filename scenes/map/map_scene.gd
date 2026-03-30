@@ -11,6 +11,7 @@ enum NodeType {
 	$CenterContainer/VBoxContainer/HBoxContainer/Option2,
 	$CenterContainer/VBoxContainer/HBoxContainer/Option3
 ]
+@onready var status_message = $CenterContainer/VBoxContainer/StatusMessage
 
 var current_nodes = []
 var run_depth = 0
@@ -19,7 +20,7 @@ var run_depth = 0
 func _ready() -> void:
 	generate_nodes()
 	setup_buttons()
-
+	refresh_map_message()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -63,6 +64,12 @@ func get_node_name(node_type):
 			return "⬆ Upgrade"
 	return "Unknown"
 
+func show_map_message(text: String):
+	status_message.text = text
+
+func refresh_map_message():
+	status_message.text = RunManager.consume_map_message()
+
 func on_node_selected(node_type):
 	RunManager.run_depth += 1
 	
@@ -71,8 +78,11 @@ func on_node_selected(node_type):
 			get_tree().change_scene_to_file("res://scenes/battle/battle_scene.tscn")
 		NodeType.HEAL:
 			RunManager.player_hp = RunManager.max_player_hp
-			print("Healed to full HP")
+			RunManager.set_map_message(
+				RunManager.build_heal_message(RunManager.player_hp, RunManager.max_player_hp)
+			)
 			generate_nodes()
 			setup_buttons()
+			refresh_map_message()
 		NodeType.UPGRADE:
 			print("Upgrade selected")

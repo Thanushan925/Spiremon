@@ -31,7 +31,14 @@ func setup_ui():
 	new_move_label.text = "New Move: " + new_move.name
 
 func _on_replace_selected(index):
+	var old_move_name = RunManager.player_moves[index].name
+	var new_move_name = new_move.name
+	
 	RunManager.player_moves[index] = new_move
 	RunManager.pending_move = null
+	
+	RunManager.set_map_message(
+		RunManager.build_replaced_move_message(old_move_name, new_move_name)
+	)
 	
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
