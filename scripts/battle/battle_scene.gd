@@ -30,6 +30,7 @@ var current_energy = 3
 
 var player_statuses: Array = []
 var enemy_statuses: Array = []
+var used_move_indices_this_turn: Array[int] = []
 
 func scale_enemy():
 	var depth = RunManager.run_depth
@@ -66,6 +67,7 @@ func _ready():
 	randomize()
 	player_hp = RunManager.player_hp
 	RunManager.player_hp = player_hp
+	used_move_indices_this_turn.clear()
 	load_moves()
 	scale_enemy()
 	update_ui()
@@ -100,6 +102,9 @@ func _on_move_pressed(move_index):
 	if not player_turn:
 		return
 	
+	if move_index in used_move_indices_this_turn:
+		return
+	
 	var move = player_moves[move_index]
 	
 	if move.cost > current_energy:
@@ -107,6 +112,7 @@ func _on_move_pressed(move_index):
 		return
 	
 	current_energy -= move.cost
+	used_move_indices_this_turn.append(move_index)
 	player_attack(move_index)
 	update_ui()
 
@@ -143,8 +149,9 @@ func enemy_turn():
 		return
 	
 	player_turn = true
-	add_log("")
+	battle_log.text = ""
 	current_energy = max_energy
+	used_move_indices_this_turn.clear()
 	set_buttons_enabled(true)
 	update_ui()
 	end_turn_button.disabled = false
@@ -173,7 +180,9 @@ func update_ui():
 		if i < player_moves.size():
 			var move = player_moves[i]
 			move_buttons[i].disabled = (
-				move.cost > current_energy or not player_turn
+				move.cost > current_energy
+				or not player_turn
+				or i in used_move_indices_this_turn
 			)
 
 func set_buttons_enabled(enabled: bool):
