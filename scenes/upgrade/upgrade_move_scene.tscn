@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://c37ptdbhuneas"]
+
+[ext_resource type="Script" uid="uid://cobxd80fiv5mj" path="res://scripts/upgrade/upgrade_move_scene.gd" id="1_howvf"]
+
+[node name="UpgradeMoveScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_howvf")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choose a Move"
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pick one move to receive a random upgrade."
+horizontal_alignment = 1
+
+[node name="Move1" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Move2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Move3" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Move4" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"

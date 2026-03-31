@@ -38,6 +38,12 @@ func build_replaced_move_message(old_move_name: String, new_move_name: String) -
 func build_recruited_spiremon_message(spiremon_name: String) -> String:
 	return "New Spirémon joined: " + spiremon_name
 
+func build_max_hp_upgrade_message(amount: int, new_max_hp: int) -> String:
+	return "Max HP increased by " + str(amount) + "! New max HP: " + str(new_max_hp)
+
+func build_move_upgrade_message(move_name: String, upgrade_text: String) -> String:
+	return move_name + " was upgraded: " + upgrade_text
+
 func add_move(move: Move):
 	if player_moves.size() < 4:
 		player_moves.append(move)

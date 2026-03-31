@@ -30,6 +30,10 @@ func _process(_delta: float) -> void:
 func generate_nodes():
 	current_nodes.clear()
 	
+	if RunManager.run_depth == 0:
+		current_nodes.append(NodeType.BATTLE)
+		return
+	
 	var num_nodes = randi_range(2, 3)
 	
 	for i in range(num_nodes):
@@ -85,4 +89,4 @@ func on_node_selected(node_type):
 			setup_buttons()
 			refresh_map_message()
 		NodeType.UPGRADE:
-			print("Upgrade selected")
+			get_tree().change_scene_to_file("res://scenes/upgrade/upgrade_scene.tscn")
