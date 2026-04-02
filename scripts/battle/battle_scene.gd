@@ -1,5 +1,7 @@
 extends Control
 
+@onready var player_name_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerName
+@onready var enemy_name_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyName
 @onready var player_hp_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerHP
 @onready var enemy_hp_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyHP
 @onready var player_status_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerStatus
@@ -20,6 +22,8 @@ extends Control
 
 var player_hp = 0
 var enemy_hp = 20
+var enemy_damage = 4
+var current_enemy: EnemyData = null
 
 var player_turn = true
 
@@ -32,9 +36,23 @@ var player_statuses: Array = []
 var enemy_statuses: Array = []
 var used_move_indices_this_turn: Array[int] = []
 
+func load_random_enemy():
+	var enemy_pool: Array[EnemyData] = [
+		load("res://resources/enemies/torterra.tres"),
+		load("res://resources/enemies/infernape.tres"),
+		load("res://resources/enemies/empoleon.tres")
+	]
+	
+	current_enemy = enemy_pool.pick_random()
+	
 func scale_enemy():
 	var depth = RunManager.run_depth
-	enemy_hp = 20 + (depth * 5)
+	
+	if current_enemy == null:
+		return
+	
+	enemy_hp = current_enemy.base_hp + (depth * 5)
+	enemy_damage = current_enemy.base_damage + depth
 
 func add_log(text: String):
 	battle_log.text += text + "\n"
@@ -69,6 +87,7 @@ func _ready():
 	RunManager.player_hp = player_hp
 	used_move_indices_this_turn.clear()
 	load_moves()
+	load_random_enemy()
 	scale_enemy()
 	update_ui()
 	setup_moves()
@@ -139,7 +158,7 @@ func player_attack(move_index):
 func enemy_turn():
 	apply_status_effects(player_statuses, true)
 	
-	var damage = 4
+	var damage = enemy_damage
 	player_hp -= damage
 	RunManager.player_hp = player_hp
 	
@@ -169,6 +188,12 @@ func check_battle_end() -> bool:
 	return false
 
 func update_ui():
+	player_name_label.text = "Your Spirémon"
+	if current_enemy != null:
+		enemy_name_label.text = current_enemy.name
+	else:
+		enemy_name_label.text = "Unknown Enemy"
+	
 	player_hp_label.text = "HP: " + str(player_hp)
 	enemy_hp_label.text = "HP: " + str(enemy_hp)
 	energy_label.text = "Energy: " + str(current_energy) + "/" + str(max_energy)

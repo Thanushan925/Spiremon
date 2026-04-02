@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://qq14tll507mg"]
+
+[ext_resource type="Script" uid="uid://dn0ay2uqcn1i0" path="res://scripts/battle/enemy_data.gd" id="1_goia2"]
+
+[resource]
+script = ExtResource("1_goia2")
+name = "Torterra"
+base_hp = 18
+base_damage = 3
+metadata/_custom_type_script = "uid://dn0ay2uqcn1i0"
