@@ -1,24 +1,28 @@
 extends Control
 
-@onready var player_name_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerName
-@onready var enemy_name_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyName
-@onready var player_hp_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerHP
-@onready var enemy_hp_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyHP
-@onready var player_status_label = $VBoxContainer/HBoxContainer/VBoxContainer/PlayerStatus
-@onready var enemy_status_label = $VBoxContainer/HBoxContainer/VBoxContainer2/EnemyStatus
+@onready var player_name_label = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerName
+@onready var enemy_name_label = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemyName
+
+@onready var player_hp_label = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerHP
+@onready var enemy_hp_label = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemyHP
+
+@onready var player_status_label = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerStatus
+@onready var enemy_status_label = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemyStatus
+
+@onready var player_sprite = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerSprite
+@onready var enemy_sprite = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemySprite
 
 @onready var move_buttons = [
-	$VBoxContainer/GridContainer/Move1,
-	$VBoxContainer/GridContainer/Move2,
-	$VBoxContainer/GridContainer/Move3,
-	$VBoxContainer/GridContainer/Move4
+	$MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer/Move1,
+	$MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer/Move2,
+	$MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer/Move3,
+	$MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer/Move4
 ]
 
-@onready var end_turn_button = $VBoxContainer/EndTurn
-
-@onready var battle_log = $VBoxContainer/BattleLog
-
-@onready var energy_label = $VBoxContainer/Energy
+@onready var end_turn_button = $MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/EndTurn
+@onready var battle_log = $MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/BattleLog
+@onready var energy_label = $MarginContainer/VBoxContainer/TopBar/PanelContainer/Energy
+@onready var background = $Background
 
 var player_hp = 0
 var enemy_hp = 20
@@ -44,6 +48,25 @@ func load_random_enemy():
 	]
 	
 	current_enemy = enemy_pool.pick_random()
+	
+func load_battle_visuals():
+	if RunManager.selected_spiremon_name == "Charizard":
+		player_sprite.texture = load("res://assets/sprites/starters/charizard.png")
+	elif RunManager.selected_spiremon_name == "Blastoise":
+		player_sprite.texture = load("res://assets/sprites/starters/blastoise.png")
+	elif RunManager.selected_spiremon_name == "Venusaur":
+		player_sprite.texture = load("res://assets/sprites/starters/venusaur.png")
+
+	if current_enemy != null:
+		match current_enemy.name:
+			"Torterra":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/torterra.png")
+			"Infernape":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/infernape.png")
+			"Empoleon":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/empoleon.png")
+
+	background.texture = load("res://assets/backgrounds/bg1.png")
 	
 func scale_enemy():
 	var depth = RunManager.run_depth
@@ -88,6 +111,7 @@ func _ready():
 	used_move_indices_this_turn.clear()
 	load_moves()
 	load_random_enemy()
+	load_battle_visuals()
 	scale_enemy()
 	update_ui()
 	setup_moves()
@@ -109,7 +133,12 @@ func setup_moves():
 	for i in range(move_buttons.size()):
 		if i < player_moves.size():
 			var move = player_moves[i]
-			move_buttons[i].text = move.name + " (" + str(move.cost) + ")"
+			var button_text = move.name + "\nDMG " + str(move.damage) + " | COST " + str(move.cost)
+			
+			if move.status != null:
+				button_text += "\n" + move.status.name + " " + str(int(move.status_chance * 100)) + "%"
+			
+			move_buttons[i].text = button_text
 			move_buttons[i].visible = true
 			
 			if not move_buttons[i].pressed.is_connected(_on_move_pressed):

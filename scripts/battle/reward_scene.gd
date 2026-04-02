@@ -6,7 +6,7 @@ extends Node
 	$VBoxContainer/HBoxContainer/MoveOption3
 ]
 
-@onready var skip_button = $VBoxContainer/SkipButton
+@onready var skip_button = $VBoxContainer/Skip
 
 var reward_moves: Array[Move] = []
 

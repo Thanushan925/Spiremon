@@ -33,11 +33,11 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Start" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Start Run"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
