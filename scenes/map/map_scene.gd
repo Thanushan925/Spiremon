@@ -18,6 +18,10 @@ var run_depth = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if RunManager.selected_spiremon_name == "":
+		get_tree().change_scene_to_file("res://scenes/starter/starter_select_scene.tscn")
+		return
+	
 	generate_nodes()
 	setup_buttons()
 	refresh_map_message()

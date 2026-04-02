@@ -11,7 +11,7 @@ func _process(_delta: float) -> void:
 
 func _on_start_pressed():
 	RunManager.reset_run()
-	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
+	get_tree().change_scene_to_file("res://scenes/starter/starter_select_scene.tscn")
 
 func _on_quit_pressed():
 	get_tree().quit()

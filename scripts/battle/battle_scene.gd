@@ -100,8 +100,8 @@ func _process(_delta: float) -> void:
 	pass
 	
 func load_moves():
-	if RunManager.player_moves.is_empty():
-		RunManager.player_moves.append(load("res://resources/moves/fire_punch.tres"))
+	if RunManager.player_moves.is_empty() and RunManager.selected_starter_move_path != "":
+		RunManager.player_moves.append(load(RunManager.selected_starter_move_path))
 	
 	player_moves = RunManager.player_moves
 
@@ -188,7 +188,11 @@ func check_battle_end() -> bool:
 	return false
 
 func update_ui():
-	player_name_label.text = "Your Spirémon"
+	if RunManager.selected_spiremon_name != "":
+		player_name_label.text = RunManager.selected_spiremon_name
+	else:
+		player_name_label.text = "Your Spirémon"
+		
 	if current_enemy != null:
 		enemy_name_label.text = current_enemy.name
 	else:

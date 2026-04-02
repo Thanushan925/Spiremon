@@ -6,6 +6,8 @@ var pending_move: Move = null
 var max_player_hp = 30
 var player_hp = 30
 var map_message = ""
+var selected_spiremon_name = ""
+var selected_starter_move_path = ""
 
 func reset_run():
 	run_depth = 0
@@ -14,6 +16,8 @@ func reset_run():
 	player_moves.clear()
 	pending_move = null
 	map_message = ""
+	selected_spiremon_name = ""
+	selected_starter_move_path = ""
 
 func set_map_message(message: String):
 	map_message = message
@@ -43,6 +47,12 @@ func build_max_hp_upgrade_message(amount: int, new_max_hp: int) -> String:
 
 func build_move_upgrade_message(move_name: String, upgrade_text: String) -> String:
 	return move_name + " was upgraded: " + upgrade_text
+
+func set_starter_choice(spiremon_name: String, move_path: String):
+	selected_spiremon_name = spiremon_name
+	selected_starter_move_path = move_path
+	player_moves.clear()
+	player_moves.append(load(move_path))
 
 func add_move(move: Move):
 	if player_moves.size() < 4:
