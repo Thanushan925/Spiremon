@@ -164,9 +164,8 @@ func check_battle_end() -> bool:
 	elif player_hp <= 0:
 		RunManager.player_hp = 0
 		print("Player Loses")
-		get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
+		get_tree().change_scene_to_file("res://scenes/ui/game_over_scene.tscn")
 		return true
-	
 	return false
 
 func update_ui():

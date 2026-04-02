@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbomhnha7jkhw"]
+
+[ext_resource type="Script" uid="uid://b8mfhhoe44162" path="res://scripts/ui/victory_scene.gd" id="1_erjqy"]
+
+[node name="VictoryScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_erjqy")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Victory!"
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "The Spire has been conquered. You cleared the run."
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start New Run"
+
+[node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
