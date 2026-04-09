@@ -1,19 +1,23 @@
-extends Node
+extends Control
 
-@onready var move_buttons = [
-	$VBoxContainer/HBoxContainer/MoveOption1,
-	$VBoxContainer/HBoxContainer/MoveOption2,
-	$VBoxContainer/HBoxContainer/MoveOption3
+@onready var background = $Background
+
+@onready var move_cards = [
+	$MarginContainer/VBoxContainer/HBoxContainer/MoveCard1,
+	$MarginContainer/VBoxContainer/HBoxContainer/MoveCard2,
+	$MarginContainer/VBoxContainer/HBoxContainer/MoveCard3
 ]
 
-@onready var skip_button = $VBoxContainer/Skip
+@onready var skip_button = $MarginContainer/VBoxContainer/Skip
 
 var reward_moves: Array[Move] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	background.texture = load("res://assets/backgrounds/bg1.png")
 	generate_rewards()
-	setup_buttons()
+	setup_cards()
+	skip_button.pressed.connect(_on_skip_pressed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,13 +38,25 @@ func generate_rewards():
 		if move not in reward_moves:
 			reward_moves.append(move)
 
-func setup_buttons():
-	for i in range(move_buttons.size()):
+func setup_cards():
+	for i in range(move_cards.size()):
+		var card = move_cards[i]
 		var move = reward_moves[i]
-		move_buttons[i].text = move.name
-		move_buttons[i].pressed.connect(_on_move_selected.bind(move))
-	
-	skip_button.pressed.connect(_on_skip_pressed)
+		
+		var move_name_label = card.get_node("VBoxContainer/Name")
+		var move_stats_label = card.get_node("VBoxContainer/Stats")
+		var move_status_label = card.get_node("VBoxContainer/Status")
+		var select_button = card.get_node("VBoxContainer/Select")
+		
+		move_name_label.text = move.name
+		move_stats_label.text = "DMG " + str(move.damage) + " | COST " + str(move.cost)
+		
+		if move.status != null:
+			move_status_label.text = move.status.name + " " + str(int(move.status_chance * 100)) + "%"
+		else:
+			move_status_label.text = "No Status"
+		
+		select_button.pressed.connect(_on_move_selected.bind(move))
 
 func _on_move_selected(move: Move):
 	RunManager.add_move(move)

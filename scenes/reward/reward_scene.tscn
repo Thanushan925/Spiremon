@@ -4,30 +4,141 @@
 
 [node name="RewardScene" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_gmdfe")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="NewMove" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Choose a Move"
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Info" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Pick One or Skip"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="MoveCard1" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(280, 300)
 layout_mode = 2
 
-[node name="MoveOption1" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="Stats" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1/VBoxContainer"]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+text = "Select"
+
+[node name="MoveCard2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(280, 300)
 layout_mode = 2
 
-[node name="MoveOption2" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="Stats" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2/VBoxContainer"]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+text = "Select"
+
+[node name="MoveCard3" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(280, 300)
 layout_mode = 2
 
-[node name="MoveOption3" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Skip" type="Button" parent="VBoxContainer"]
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+
+[node name="Stats" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+
+[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3/VBoxContainer"]
+custom_minimum_size = Vector2(180, 45)
+layout_mode = 2
+text = "Select"
+
+[node name="Skip" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 text = "Skip"
