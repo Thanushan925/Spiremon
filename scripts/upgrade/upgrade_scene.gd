@@ -34,7 +34,7 @@ func _on_increase_hp_pressed():
 
 func setup_text():
 	upgrade_move_title.text = "Upgrade a Move"
-	upgrade_move_description.text = "Pick one of your moves for a random bonus:\n+3 damage, -1 cost, or +20% status chance."
+	upgrade_move_description.text = "Pick one move for a random bonus:\n+3 damage, -1 cost, or +20% status chance."
 	
 	increase_hp_title.text = "Increase Max HP"
 	increase_hp_description.text = "Gain +5 max HP."

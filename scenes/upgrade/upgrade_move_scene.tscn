@@ -4,39 +4,80 @@
 
 [node name="UpgradeMoveScene" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_howvf")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
 
-[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
 text = "Choose a Move"
 horizontal_alignment = 1
 
-[node name="Info" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Info" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Pick one move to receive a random upgrade."
 horizontal_alignment = 1
 
-[node name="Move1" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="MoveListPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 320)
 layout_mode = 2
 
-[node name="Move2" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MoveListPanel"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
-[node name="Move3" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Move1" type="Button" parent="MarginContainer/VBoxContainer/MoveListPanel/VBoxContainer"]
+custom_minimum_size = Vector2(600, 60)
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 
-[node name="Move4" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Move2" type="Button" parent="MarginContainer/VBoxContainer/MoveListPanel/VBoxContainer"]
+custom_minimum_size = Vector2(600, 60)
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 
-[node name="Back" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Move3" type="Button" parent="MarginContainer/VBoxContainer/MoveListPanel/VBoxContainer"]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="Move4" type="Button" parent="MarginContainer/VBoxContainer/MoveListPanel/VBoxContainer"]
+custom_minimum_size = Vector2(600, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 48)
 layout_mode = 2
 text = "Back"
