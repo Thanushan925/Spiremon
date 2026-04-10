@@ -6,91 +6,103 @@ enum NodeType {
 	UPGRADE
 }
 
-@onready var buttons = [
-	$CenterContainer/VBoxContainer/HBoxContainer/Option1,
-	$CenterContainer/VBoxContainer/HBoxContainer/Option2,
-	$CenterContainer/VBoxContainer/HBoxContainer/Option3
+@onready var background = $Background
+@onready var status_message = $MarginContainer/VBoxContainer/StatusMessage
+
+@onready var node_cards = [
+	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode,
+	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode,
+	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode
 ]
-@onready var status_message = $CenterContainer/VBoxContainer/StatusMessage
 
-var current_nodes = []
-var run_depth = 0
+var current_nodes: Array[int] = []
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if RunManager.selected_spiremon_name == "":
 		get_tree().change_scene_to_file("res://scenes/starter/starter_select_scene.tscn")
 		return
 	
+	background.texture = load("res://assets/backgrounds/bg1.png")
 	generate_nodes()
-	setup_buttons()
+	setup_node_cards()
 	refresh_map_message()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-	
-
-func generate_nodes():
+func generate_nodes() -> void:
 	current_nodes.clear()
 	
 	if RunManager.run_depth == 0:
 		current_nodes.append(NodeType.BATTLE)
 		return
 	
-	var num_nodes = randi_range(2, 3)
+	current_nodes.append(NodeType.BATTLE)
 	
-	for i in range(num_nodes):
-		var type = NodeType.values().pick_random()
-		current_nodes.append(type)
+	if randf() < 0.5:
+		current_nodes.append(NodeType.HEAL)
+	
+	if randf() < 0.5:
+		current_nodes.append(NodeType.UPGRADE)
 
-func setup_buttons():
-	for i in range(buttons.size()):
-		if buttons[i].pressed.is_connected(_on_map_button_pressed):
-			buttons[i].pressed.disconnect(_on_map_button_pressed)
-		
-		if i < current_nodes.size():
-			var node_type = current_nodes[i]
-			buttons[i].visible = true
-			buttons[i].text = get_node_name(node_type)
-			buttons[i].set_meta("node_type", node_type)
-			buttons[i].pressed.connect(_on_map_button_pressed.bind(buttons[i]))
-		else:
-			buttons[i].visible = false
+func setup_node_cards() -> void:
+	var card_map = {
+		NodeType.BATTLE: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode,
+		NodeType.HEAL: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode,
+		NodeType.UPGRADE: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode
+	}
+	
+	# hide all first
+	for card in node_cards:
+		card.visible = false
+	
+	# show only generated nodes
+	for node_type in current_nodes:
+		var card = card_map[node_type]
+		card.visible = true
+		setup_single_card(card, node_type)
 
-func _on_map_button_pressed(button):
-	var node_type = button.get_meta("node_type")
-	on_node_selected(node_type)
-
-func get_node_name(node_type):
+func setup_single_card(card: PanelContainer, node_type: int) -> void:
+	var title_label = card.get_node("VBoxContainer/Title")
+	var description_label = card.get_node("VBoxContainer/Description")
+	var select_button = card.get_node("VBoxContainer/Select")
+	
 	match node_type:
 		NodeType.BATTLE:
-			return "⚔ Battle"
+			title_label.text = "Battle"
+			description_label.text = "Fight a wild Spirémon and earn a move reward."
 		NodeType.HEAL:
-			return "❤ Heal"
+			title_label.text = "Heal"
+			description_label.text = "Restore your Spirémon to full HP."
 		NodeType.UPGRADE:
-			return "⬆ Upgrade"
-	return "Unknown"
+			title_label.text = "Upgrade"
+			description_label.text = "Improve a move or increase your max HP."
+	
+	select_button.text = "Choose"
+	
+	if select_button.pressed.is_connected(_on_node_button_pressed):
+		select_button.pressed.disconnect(_on_node_button_pressed)
+	
+	select_button.pressed.connect(_on_node_button_pressed.bind(node_type))
 
-func show_map_message(text: String):
-	status_message.text = text
+func _on_node_button_pressed(node_type: int) -> void:
+	on_node_selected(node_type)
 
-func refresh_map_message():
-	status_message.text = RunManager.consume_map_message()
-
-func on_node_selected(node_type):
+func on_node_selected(node_type: int) -> void:
 	RunManager.run_depth += 1
 	
 	match node_type:
 		NodeType.BATTLE:
 			get_tree().change_scene_to_file("res://scenes/battle/battle_scene.tscn")
+		
 		NodeType.HEAL:
 			RunManager.player_hp = RunManager.max_player_hp
 			RunManager.set_map_message(
 				RunManager.build_heal_message(RunManager.player_hp, RunManager.max_player_hp)
 			)
 			generate_nodes()
-			setup_buttons()
+			setup_node_cards()
 			refresh_map_message()
+		
 		NodeType.UPGRADE:
 			get_tree().change_scene_to_file("res://scenes/upgrade/upgrade_scene.tscn")
+
+func refresh_map_message() -> void:
+	status_message.text = RunManager.consume_map_message()

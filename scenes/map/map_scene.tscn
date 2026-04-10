@@ -4,46 +4,127 @@
 
 [node name="MapScene" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_81at0")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="StatusMessage" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Choose Your Path"
 horizontal_alignment = 1
 
-[node name="Message" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="StatusMessage" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Choose your path, Trainer."
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
+[node name="PathArea" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PathArea"]
 layout_mode = 2
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="Option1" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="BattleNode" type="PanelContainer" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer"]
+custom_minimum_size = Vector2(260, 240)
 layout_mode = 2
 
-[node name="Option2" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode/VBoxContainer"]
+custom_minimum_size = Vector2(160, 46)
+layout_mode = 2
+text = "Choose"
+
+[node name="HealNode" type="PanelContainer" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer"]
+custom_minimum_size = Vector2(260, 240)
 layout_mode = 2
 
-[node name="Option3" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode/VBoxContainer"]
+custom_minimum_size = Vector2(160, 46)
+layout_mode = 2
+text = "Choose"
+
+[node name="UpgradeNode" type="PanelContainer" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer"]
+custom_minimum_size = Vector2(260, 240)
 layout_mode = 2
 
-[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode"]
 layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode/VBoxContainer"]
+custom_minimum_size = Vector2(160, 46)
+layout_mode = 2
+text = "Choose"
