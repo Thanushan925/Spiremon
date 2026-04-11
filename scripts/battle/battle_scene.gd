@@ -152,6 +152,8 @@ func _on_move_pressed(move_index):
 	
 	if move_index in used_move_indices_this_turn:
 		return
+		
+	battle_log.text = ""
 	
 	var move = player_moves[move_index]
 	
@@ -174,7 +176,8 @@ func player_attack(move_index):
 	if move.status != null:
 		if randf() <= move.status_chance:
 			var new_status = move.status.duplicate()
-			apply_status_to_target(enemy_statuses, new_status, "Enemy")
+			var enemy_name = current_enemy.name if current_enemy != null else "Enemy"
+			apply_status_to_target(enemy_statuses, new_status, enemy_name)
 	
 	if check_battle_end():
 		return
@@ -191,13 +194,13 @@ func enemy_turn():
 	player_hp -= damage
 	RunManager.player_hp = player_hp
 	
-	battle_log.text = "Enemy dealt " + str(damage) + " damage!"
+	var enemy_name = current_enemy.name if current_enemy != null else "Enemy"
+	battle_log.text = enemy_name + " dealt " + str(damage) + " damage!"
 	
 	if check_battle_end():
 		return
 	
 	player_turn = true
-	battle_log.text = ""
 	current_energy = max_energy
 	used_move_indices_this_turn.clear()
 	set_buttons_enabled(true)
