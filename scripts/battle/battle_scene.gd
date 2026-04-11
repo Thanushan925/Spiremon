@@ -41,6 +41,10 @@ var enemy_statuses: Array = []
 var used_move_indices_this_turn: Array[int] = []
 
 func load_random_enemy():
+	if RunManager.is_boss_node():
+		current_enemy = load("res://resources/enemies/espurr.tres")
+		return
+	
 	var enemy_pool: Array[EnemyData] = [
 		load("res://resources/enemies/torterra.tres"),
 		load("res://resources/enemies/infernape.tres"),
@@ -65,6 +69,8 @@ func load_battle_visuals():
 				enemy_sprite.texture = load("res://assets/sprites/enemies/infernape.png")
 			"Empoleon":
 				enemy_sprite.texture = load("res://assets/sprites/enemies/empoleon.png")
+			"Espurr":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/espurr.png")
 
 	background.texture = load("res://assets/backgrounds/bg1.png")
 	
@@ -210,7 +216,12 @@ func enemy_turn():
 func check_battle_end() -> bool:
 	if enemy_hp <= 0:
 		print("Player Wins")
-		get_tree().change_scene_to_file("res://scenes/reward/reward_scene.tscn")
+		
+		if current_enemy != null and current_enemy.name == "Espurr":
+			get_tree().change_scene_to_file("res://scenes/ui/victory_scene.tscn")
+		else:
+			get_tree().change_scene_to_file("res://scenes/reward/reward_scene.tscn")
+		
 		return true
 	elif player_hp <= 0:
 		RunManager.player_hp = 0

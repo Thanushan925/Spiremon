@@ -3,16 +3,19 @@ extends Control
 enum NodeType {
 	BATTLE,
 	HEAL,
-	UPGRADE
+	UPGRADE,
+	BOSS
 }
 
 @onready var background = $Background
 @onready var status_message = $MarginContainer/VBoxContainer/StatusMessage
+@onready var progress_label = $MarginContainer/VBoxContainer/Progress
 
 @onready var node_cards = [
 	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode,
 	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode,
-	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode
+	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode,
+	$MarginContainer/VBoxContainer/PathArea/HBoxContainer/BossNode
 ]
 
 var current_nodes: Array[int] = []
@@ -23,6 +26,7 @@ func _ready() -> void:
 		return
 	
 	background.texture = load("res://assets/backgrounds/bg1.png")
+	refresh_progress_label()
 	generate_nodes()
 	setup_node_cards()
 	refresh_map_message()
@@ -30,23 +34,33 @@ func _ready() -> void:
 func generate_nodes() -> void:
 	current_nodes.clear()
 	
+	# First node of the run: only Battle
 	if RunManager.run_depth == 0:
 		current_nodes.append(NodeType.BATTLE)
 		return
 	
+	# Boss node: only boss fight
+	if RunManager.is_boss_node():
+		current_nodes.append(NodeType.BOSS)
+		return
+	
+	# Normal nodes always include Battle
 	current_nodes.append(NodeType.BATTLE)
 	
-	if randf() < 0.5:
-		current_nodes.append(NodeType.HEAL)
-	
-	if randf() < 0.5:
-		current_nodes.append(NodeType.UPGRADE)
+	# Optional nodes before boss
+	if not RunManager.is_pre_boss_node():
+		if randf() < 0.5:
+			current_nodes.append(NodeType.HEAL)
+		
+		if randf() < 0.5:
+			current_nodes.append(NodeType.UPGRADE)
 
 func setup_node_cards() -> void:
 	var card_map = {
 		NodeType.BATTLE: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/BattleNode,
 		NodeType.HEAL: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/HealNode,
-		NodeType.UPGRADE: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode
+		NodeType.UPGRADE: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/UpgradeNode,
+		NodeType.BOSS: $MarginContainer/VBoxContainer/PathArea/HBoxContainer/BossNode
 	}
 	
 	# hide all first
@@ -66,13 +80,23 @@ func setup_single_card(card: Button, node_type: int) -> void:
 	match node_type:
 		NodeType.BATTLE:
 			title_label.text = "Battle"
-			description_label.text = "Fight a wild Spirémon and\nearn a move reward."
+			
+			if RunManager.is_pre_boss_node():
+				description_label.text = "Fight carefully. The next node will be the boss."
+			else:
+				description_label.text = "Fight a wild Spirémon and earn a move reward."
+		
 		NodeType.HEAL:
 			title_label.text = "Heal"
-			description_label.text = "Restore your Spirémon to\nfull HP."
+			description_label.text = "Restore your Spirémon to full HP."
+		
 		NodeType.UPGRADE:
 			title_label.text = "Upgrade"
-			description_label.text = "Improve a move or increase\nyour max HP."
+			description_label.text = "Improve a move or increase your max HP."
+		
+		NodeType.BOSS:
+			title_label.text = "Boss Fight"
+			description_label.text = "Face the ultimate final boss. Win this battle to clear the run."
 	
 	if card.pressed.is_connected(_on_node_button_pressed):
 		card.pressed.disconnect(_on_node_button_pressed)
@@ -96,10 +120,17 @@ func on_node_selected(node_type: int) -> void:
 			)
 			generate_nodes()
 			setup_node_cards()
+			refresh_progress_label()
 			refresh_map_message()
 		
 		NodeType.UPGRADE:
 			get_tree().change_scene_to_file("res://scenes/upgrade/upgrade_scene.tscn")
+		
+		NodeType.BOSS:
+			get_tree().change_scene_to_file("res://scenes/battle/battle_scene.tscn")
 
 func refresh_map_message() -> void:
 	status_message.text = RunManager.consume_map_message()
+
+func refresh_progress_label() -> void:
+	progress_label.text = RunManager.get_progress_text()

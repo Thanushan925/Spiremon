@@ -8,6 +8,8 @@ var player_hp = 30
 var map_message = ""
 var selected_spiremon_name = ""
 var selected_starter_move_path = ""
+var max_run_depth = 10
+var boss_depth = 10
 
 func reset_run():
 	run_depth = 0
@@ -47,6 +49,15 @@ func build_max_hp_upgrade_message(amount: int, new_max_hp: int) -> String:
 
 func build_move_upgrade_message(move_name: String, upgrade_text: String) -> String:
 	return move_name + " was upgraded: " + upgrade_text
+	
+func is_boss_node() -> bool:
+	return run_depth >= boss_depth
+
+func is_pre_boss_node() -> bool:
+	return run_depth == boss_depth - 1
+
+func get_progress_text() -> String:
+	return str(run_depth) + "/" + str(max_run_depth)
 
 func set_starter_choice(spiremon_name: String, move_path: String):
 	selected_spiremon_name = spiremon_name
