@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cet8ifsxdlhlc"
-path="res://.godot/imported/infernape.png-dac26653e06d88a5a8f334942fb19f7d.ctex"
+uid="uid://dimtcpjoxmapc"
+path="res://.godot/imported/darkrai.png-ee571ca835ef2c936d91eff3f32b99a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/infernape.png"
-dest_files=["res://.godot/imported/infernape.png-dac26653e06d88a5a8f334942fb19f7d.ctex"]
+source_file="res://assets/sprites/enemies/darkrai.png"
+dest_files=["res://.godot/imported/darkrai.png-ee571ca835ef2c936d91eff3f32b99a1.ctex"]
 
 [params]
 

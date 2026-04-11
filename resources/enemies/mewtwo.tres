@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://brux1s0vqlrly"]
+
+[ext_resource type="Script" uid="uid://dn0ay2uqcn1i0" path="res://scripts/battle/enemy_data.gd" id="1_jam7n"]
+
+[resource]
+script = ExtResource("1_jam7n")
+name = "Mewtwo"
+base_hp = 20
+base_damage = 6
+metadata/_custom_type_script = "uid://dn0ay2uqcn1i0"

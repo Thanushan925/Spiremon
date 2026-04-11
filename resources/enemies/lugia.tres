@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://c1l6p8ptfope4"]
+
+[ext_resource type="Script" uid="uid://dn0ay2uqcn1i0" path="res://scripts/battle/enemy_data.gd" id="1_mj53a"]
+
+[resource]
+script = ExtResource("1_mj53a")
+name = "Lugia"
+base_hp = 25
+base_damage = 4
+metadata/_custom_type_script = "uid://dn0ay2uqcn1i0"

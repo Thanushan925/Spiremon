@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqutt2n3o15d6"
-path="res://.godot/imported/empoleon.png-21ce969a141c7af53bd6848957e86565.ctex"
+uid="uid://dcr3o3gryw5ei"
+path="res://.godot/imported/rayquaza.png-9139077c39566205a2daddf9eeb0fffd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/empoleon.png"
-dest_files=["res://.godot/imported/empoleon.png-21ce969a141c7af53bd6848957e86565.ctex"]
+source_file="res://assets/sprites/enemies/rayquaza.png"
+dest_files=["res://.godot/imported/rayquaza.png-9139077c39566205a2daddf9eeb0fffd.ctex"]
 
 [params]
 

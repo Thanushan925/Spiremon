@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oghbebsv2dvd"
-path="res://.godot/imported/espurr.webp-768e81ecfb174be481be7bc71daec583.ctex"
+uid="uid://bs0gjq3mk631p"
+path="res://.godot/imported/arceus.png-3661e6565fdc5e6e4b85a42b488d8611.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/espurr.webp"
-dest_files=["res://.godot/imported/espurr.webp-768e81ecfb174be481be7bc71daec583.ctex"]
+source_file="res://assets/sprites/enemies/arceus.png"
+dest_files=["res://.godot/imported/arceus.png-3661e6565fdc5e6e4b85a42b488d8611.ctex"]
 
 [params]
 

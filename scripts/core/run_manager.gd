@@ -10,6 +10,7 @@ var selected_spiremon_name = ""
 var selected_starter_move_path = ""
 var max_run_depth = 10
 var boss_depth = 10
+var used_enemy_names: Array[String] = []
 
 func reset_run():
 	run_depth = 0
@@ -20,6 +21,7 @@ func reset_run():
 	map_message = ""
 	selected_spiremon_name = ""
 	selected_starter_move_path = ""
+	used_enemy_names.clear()
 
 func set_map_message(message: String):
 	map_message = message

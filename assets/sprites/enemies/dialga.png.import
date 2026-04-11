@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx8hcrvbxnbjl"
-path="res://.godot/imported/torterra.png-ddf05e17226d6a0e4eb96c3f12488099.ctex"
+uid="uid://d17qnabievgvm"
+path="res://.godot/imported/dialga.png-b220a04369c50a524ead47f815347198.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemies/torterra.png"
-dest_files=["res://.godot/imported/torterra.png-ddf05e17226d6a0e4eb96c3f12488099.ctex"]
+source_file="res://assets/sprites/enemies/dialga.png"
+dest_files=["res://.godot/imported/dialga.png-b220a04369c50a524ead47f815347198.ctex"]
 
 [params]
 

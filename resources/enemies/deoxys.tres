@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3 uid="uid://en81i88lmako"]
+
+[ext_resource type="Script" uid="uid://dn0ay2uqcn1i0" path="res://scripts/battle/enemy_data.gd" id="1_f1p2p"]
+
+[resource]
+script = ExtResource("1_f1p2p")
+name = "Deoxys"
+base_hp = 18
+base_damage = 7
+metadata/_custom_type_script = "uid://dn0ay2uqcn1i0"

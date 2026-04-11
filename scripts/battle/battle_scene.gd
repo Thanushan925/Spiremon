@@ -46,12 +46,31 @@ func load_random_enemy():
 		return
 	
 	var enemy_pool: Array[EnemyData] = [
-		load("res://resources/enemies/torterra.tres"),
-		load("res://resources/enemies/infernape.tres"),
-		load("res://resources/enemies/empoleon.tres")
+		load("res://resources/enemies/giratina.tres"),
+		load("res://resources/enemies/dialga.tres"),
+		load("res://resources/enemies/mewtwo.tres"),
+		load("res://resources/enemies/darkrai.tres"),
+		load("res://resources/enemies/rayquaza.tres"),
+		load("res://resources/enemies/lugia.tres"),
+		load("res://resources/enemies/arceus.tres"),
+		load("res://resources/enemies/reshiram.tres"),
+		load("res://resources/enemies/deoxys.tres")
 	]
 	
-	current_enemy = enemy_pool.pick_random()
+	var available_enemies: Array[EnemyData] = []
+	
+	for enemy in enemy_pool:
+		if enemy.name not in RunManager.used_enemy_names:
+			available_enemies.append(enemy)
+	
+	# fallback safety: if somehow all have been used, allow reuse
+	if available_enemies.is_empty():
+		available_enemies = enemy_pool.duplicate()
+	
+	current_enemy = available_enemies.pick_random()
+	
+	if current_enemy != null:
+		RunManager.used_enemy_names.append(current_enemy.name)
 	
 func load_battle_visuals():
 	if RunManager.selected_spiremon_name == "Charizard":
@@ -63,15 +82,27 @@ func load_battle_visuals():
 
 	if current_enemy != null:
 		match current_enemy.name:
-			"Torterra":
-				enemy_sprite.texture = load("res://assets/sprites/enemies/torterra.png")
-			"Infernape":
-				enemy_sprite.texture = load("res://assets/sprites/enemies/infernape.png")
-			"Empoleon":
-				enemy_sprite.texture = load("res://assets/sprites/enemies/empoleon.png")
+			"Giratina":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/giratina.png")
+			"Dialga":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/dialga.png")
+			"Mewtwo":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/mewtwo.png")
+			"Darkrai":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/darkrai.png")
+			"Rayquaza":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/rayquaza.png")
+			"Lugia":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/lugia.png")
+			"Arceus":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/arceus.png")
+			"Reshiram":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/reshiram.png")
+			"Deoxys":
+				enemy_sprite.texture = load("res://assets/sprites/enemies/deoxys.png")
 			"Espurr":
 				enemy_sprite.texture = load("res://assets/sprites/enemies/espurr.png")
-
+	
 	background.texture = load("res://assets/backgrounds/bg1.png")
 	
 func scale_enemy():
