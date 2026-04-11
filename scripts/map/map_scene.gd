@@ -59,28 +59,25 @@ func setup_node_cards() -> void:
 		card.visible = true
 		setup_single_card(card, node_type)
 
-func setup_single_card(card: PanelContainer, node_type: int) -> void:
+func setup_single_card(card: Button, node_type: int) -> void:
 	var title_label = card.get_node("VBoxContainer/Title")
 	var description_label = card.get_node("VBoxContainer/Description")
-	var select_button = card.get_node("VBoxContainer/Select")
 	
 	match node_type:
 		NodeType.BATTLE:
 			title_label.text = "Battle"
-			description_label.text = "Fight a wild Spirémon and earn a move reward."
+			description_label.text = "Fight a wild Spirémon and\nearn a move reward."
 		NodeType.HEAL:
 			title_label.text = "Heal"
-			description_label.text = "Restore your Spirémon to full HP."
+			description_label.text = "Restore your Spirémon to\nfull HP."
 		NodeType.UPGRADE:
 			title_label.text = "Upgrade"
-			description_label.text = "Improve a move or increase your max HP."
+			description_label.text = "Improve a move or increase\nyour max HP."
 	
-	select_button.text = "Choose"
+	if card.pressed.is_connected(_on_node_button_pressed):
+		card.pressed.disconnect(_on_node_button_pressed)
 	
-	if select_button.pressed.is_connected(_on_node_button_pressed):
-		select_button.pressed.disconnect(_on_node_button_pressed)
-	
-	select_button.pressed.connect(_on_node_button_pressed.bind(node_type))
+	card.pressed.connect(_on_node_button_pressed.bind(node_type))
 
 func _on_node_button_pressed(node_type: int) -> void:
 	on_node_selected(node_type)

@@ -14,9 +14,9 @@ extends Control
 @onready var blastoise_move = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard2/VBoxContainer/MovePreview
 @onready var venusaur_move = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard3/VBoxContainer/MovePreview
 
-@onready var charizard_button = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard1/VBoxContainer/Select
-@onready var blastoise_button = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard2/VBoxContainer/Select
-@onready var venusaur_button = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard3/VBoxContainer/Select
+@onready var charizard_button = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard1
+@onready var blastoise_button = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard2
+@onready var venusaur_button = $MarginContainer/VBoxContainer/HBoxContainer/StarterCard3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

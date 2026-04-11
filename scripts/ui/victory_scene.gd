@@ -1,8 +1,8 @@
 extends Control
 
 @onready var background = $Background
-@onready var restart_button = $MarginContainer/CenterContainer/PanelContainer/VBoxContainer/Restart
-@onready var main_menu_button = $MarginContainer/CenterContainer/PanelContainer/VBoxContainer/MainMenu
+@onready var restart_button = $MarginContainer/CenterContainer/VBoxContainer/Restart
+@onready var main_menu_button = $MarginContainer/CenterContainer/VBoxContainer/MainMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

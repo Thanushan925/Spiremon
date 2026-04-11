@@ -74,8 +74,8 @@ func scale_enemy():
 	if current_enemy == null:
 		return
 	
-	enemy_hp = current_enemy.base_hp + (depth * 5)
-	enemy_damage = current_enemy.base_damage + depth
+	enemy_hp = current_enemy.base_hp + (depth * 3)
+	enemy_damage = current_enemy.base_damage + int(depth / 2.0)
 
 func add_log(text: String):
 	battle_log.text += text + "\n"

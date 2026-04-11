@@ -54,12 +54,14 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="UpgradeMoveCard" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="UpgradeMoveCard" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(380, 260)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 260.0
 theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard/VBoxContainer"]
@@ -72,17 +74,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard/VBoxContainer"]
-custom_minimum_size = Vector2(180, 48)
-layout_mode = 2
-text = "Choose"
-
-[node name="IncreaseHPCard" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="IncreaseHPCard" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(380, 260)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 380.0
+offset_bottom = 260.0
 theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard/VBoxContainer"]
@@ -94,8 +93,3 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
-
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard/VBoxContainer"]
-custom_minimum_size = Vector2(180, 48)
-layout_mode = 2
-text = "Choose"

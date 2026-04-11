@@ -54,13 +54,16 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="MoveCard1" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MoveCard1" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(280, 300)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 300.0
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1/VBoxContainer"]
 layout_mode = 2
@@ -77,18 +80,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard1/VBoxContainer"]
-custom_minimum_size = Vector2(180, 45)
-layout_mode = 2
-text = "Select"
-
-[node name="MoveCard2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MoveCard2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(280, 300)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 300.0
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2/VBoxContainer"]
 layout_mode = 2
@@ -105,18 +106,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard2/VBoxContainer"]
-custom_minimum_size = Vector2(180, 45)
-layout_mode = 2
-text = "Select"
-
-[node name="MoveCard3" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MoveCard3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(280, 300)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 280.0
+offset_bottom = 300.0
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3/VBoxContainer"]
 layout_mode = 2
@@ -132,11 +131,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
-
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/MoveCard3/VBoxContainer"]
-custom_minimum_size = Vector2(180, 45)
-layout_mode = 2
-text = "Select"
 
 [node name="Skip" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)

@@ -7,10 +7,10 @@ extends Control
 @onready var new_move_status_label = $MarginContainer/VBoxContainer/NewMovePanel/VBoxContainer/NewMoveStatus
 
 @onready var move_buttons = [
-	$MarginContainer/VBoxContainer/CurrentMovesPanel/VBoxContainer/Move1,
-	$MarginContainer/VBoxContainer/CurrentMovesPanel/VBoxContainer/Move2,
-	$MarginContainer/VBoxContainer/CurrentMovesPanel/VBoxContainer/Move3,
-	$MarginContainer/VBoxContainer/CurrentMovesPanel/VBoxContainer/Move4
+	$MarginContainer/VBoxContainer/VBoxContainer/Move1,
+	$MarginContainer/VBoxContainer/VBoxContainer/Move2,
+	$MarginContainer/VBoxContainer/VBoxContainer/Move3,
+	$MarginContainer/VBoxContainer/VBoxContainer/Move4
 ]
 
 var new_move: Move

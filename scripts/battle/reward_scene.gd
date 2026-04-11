@@ -38,7 +38,7 @@ func generate_rewards():
 		if move not in reward_moves:
 			reward_moves.append(move)
 
-func setup_cards():
+func setup_cards() -> void:
 	for i in range(move_cards.size()):
 		var card = move_cards[i]
 		var move = reward_moves[i]
@@ -46,7 +46,6 @@ func setup_cards():
 		var move_name_label = card.get_node("VBoxContainer/Name")
 		var move_stats_label = card.get_node("VBoxContainer/Stats")
 		var move_status_label = card.get_node("VBoxContainer/Status")
-		var select_button = card.get_node("VBoxContainer/Select")
 		
 		move_name_label.text = move.name
 		move_stats_label.text = "DMG " + str(move.damage) + " | COST " + str(move.cost)
@@ -56,7 +55,10 @@ func setup_cards():
 		else:
 			move_status_label.text = "No Status"
 		
-		select_button.pressed.connect(_on_move_selected.bind(move))
+		if card.pressed.is_connected(_on_move_selected):
+			card.pressed.disconnect(_on_move_selected)
+		
+		card.pressed.connect(_on_move_selected.bind(move))
 
 func _on_move_selected(move: Move):
 	RunManager.add_move(move)

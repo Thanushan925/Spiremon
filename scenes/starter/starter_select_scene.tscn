@@ -52,17 +52,20 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="StarterCard1" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="StarterCard1" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 420)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard1"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 420.0
 theme_override_constants/separation = 12
 
 [node name="Sprite" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard1/VBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+mouse_filter = 2
 expand_mode = 4
 stretch_mode = 6
 
@@ -76,22 +79,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard1/VBoxContainer"]
-custom_minimum_size = Vector2(180, 48)
-layout_mode = 2
-text = "Choose"
-
-[node name="StarterCard2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="StarterCard2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 420)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard2"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 420.0
 theme_override_constants/separation = 12
 
 [node name="Sprite" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard2/VBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+mouse_filter = 2
 expand_mode = 4
 stretch_mode = 6
 
@@ -105,22 +106,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard2/VBoxContainer"]
-custom_minimum_size = Vector2(180, 48)
-layout_mode = 2
-text = "Choose"
-
-[node name="StarterCard3" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="StarterCard3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 420)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard3"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 420.0
 theme_override_constants/separation = 12
 
 [node name="Sprite" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard3/VBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+mouse_filter = 2
 expand_mode = 4
 stretch_mode = 6
 
@@ -133,8 +132,3 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
-
-[node name="Select" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard3/VBoxContainer"]
-custom_minimum_size = Vector2(180, 48)
-layout_mode = 2
-text = "Choose"

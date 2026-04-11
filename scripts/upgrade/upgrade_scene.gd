@@ -4,11 +4,11 @@ extends Control
 
 @onready var upgrade_move_title = $MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard/VBoxContainer/Title
 @onready var upgrade_move_description = $MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard/VBoxContainer/Description
-@onready var upgrade_move_button = $MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard/VBoxContainer/Select
+@onready var upgrade_move_button = $MarginContainer/VBoxContainer/HBoxContainer/UpgradeMoveCard
 
 @onready var increase_hp_title = $MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard/VBoxContainer/Title
 @onready var increase_hp_description = $MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard/VBoxContainer/Description
-@onready var increase_hp_button = $MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard/VBoxContainer/Select
+@onready var increase_hp_button = $MarginContainer/VBoxContainer/HBoxContainer/IncreaseHPCard
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
