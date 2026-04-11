@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://dt0pm6tj6qhqd"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_kn1t6"]
+[ext_resource type="Resource" uid="uid://7nosjrf7vwqk" path="res://resources/statuses/poison.tres" id="2_2u1rp"]
+
+[resource]
+script = ExtResource("1_kn1t6")
+name = "Sludge Bomb"
+damage = 6
+cost = 2
+status = ExtResource("2_2u1rp")
+status_chance = 0.2
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"

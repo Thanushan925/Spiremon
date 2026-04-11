@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://7nosjrf7vwqk"]
+
+[ext_resource type="Script" uid="uid://chmsy3qtfu470" path="res://scripts/battle/status_effect.gd" id="1_8nc6l"]
+
+[resource]
+script = ExtResource("1_8nc6l")
+name = "Poison"
+damage_per_turn = 2
+apply_message = "\"{target} is poisoned!\""
+refresh_message = "\"{target}'s Poison was refreshed!\""
+metadata/_custom_type_script = "uid://chmsy3qtfu470"

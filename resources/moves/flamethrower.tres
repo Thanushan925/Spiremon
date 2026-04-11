@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://0vehr6ylnfsm"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_4ujd4"]
+[ext_resource type="Resource" uid="uid://datxl8yioffg1" path="res://resources/statuses/burn.tres" id="2_eb6sa"]
+
+[resource]
+script = ExtResource("1_4ujd4")
+name = "Flamethrower"
+damage = 8
+cost = 3
+status = ExtResource("2_eb6sa")
+status_chance = 0.2
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"

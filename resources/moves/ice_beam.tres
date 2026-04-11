@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://qfikt5gt53la"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_5ou5s"]
+[ext_resource type="Resource" uid="uid://d2wi76mqhka0" path="res://resources/statuses/frozen.tres" id="2_7fiig"]
+
+[resource]
+script = ExtResource("1_5ou5s")
+name = "Ice Beam"
+damage = 7
+cost = 3
+status = ExtResource("2_7fiig")
+status_chance = 0.1
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"

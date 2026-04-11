@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://cbi4txdc3e1vd"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_3taub"]
+[ext_resource type="Resource" uid="uid://cod5v5icb3utm" path="res://resources/statuses/paralyzed.tres" id="2_efki8"]
+
+[resource]
+script = ExtResource("1_3taub")
+name = "Thunderbolt"
+damage = 6
+cost = 2
+status = ExtResource("2_efki8")
+status_chance = 0.2
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Move" load_steps=3 format=3 uid="uid://o5777nw6tfqk"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_044lh"]
+[ext_resource type="Resource" uid="uid://7nosjrf7vwqk" path="res://resources/statuses/poison.tres" id="2_xm83v"]
+
+[resource]
+script = ExtResource("1_044lh")
+name = "Poison Fang"
+damage = 5
+cost = 2
+status = ExtResource("2_xm83v")
+status_chance = 0.3
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"

@@ -24,11 +24,16 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func generate_rewards():
+func generate_rewards() -> void:
 	var all_moves = [
 		load("res://resources/moves/fire_punch.tres"),
 		load("res://resources/moves/water_gun.tres"),
-		load("res://resources/moves/razor_leaf.tres")
+		load("res://resources/moves/razor_leaf.tres"),
+		load("res://resources/moves/thunderbolt.tres"),
+		load("res://resources/moves/poison_fang.tres"),
+		load("res://resources/moves/flamethrower.tres"),
+		load("res://resources/moves/sludge_bomb.tres"),
+		load("res://resources/moves/ice_beam.tres")
 	]
 	
 	reward_moves.clear()

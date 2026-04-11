@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://cod5v5icb3utm"]
+
+[ext_resource type="Script" uid="uid://chmsy3qtfu470" path="res://scripts/battle/status_effect.gd" id="1_sygu8"]
+
+[resource]
+script = ExtResource("1_sygu8")
+name = "Paralyzed"
+apply_message = "\"{target} is paralyzed!\""
+refresh_message = "\"{target}'s Paralyzed was refreshed!\""
+metadata/_custom_type_script = "uid://chmsy3qtfu470"

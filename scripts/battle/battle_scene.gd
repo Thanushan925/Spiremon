@@ -130,6 +130,12 @@ func get_status_text(status_list: Array) -> String:
 	
 	return "Status: " + ", ".join(parts)
 	
+func has_status(status_list: Array, status_name: String) -> bool:
+	for status in status_list:
+		if status.name == status_name:
+			return true
+	return false
+	
 func apply_status_to_target(status_list: Array, new_status: StatusEffect, target_name: String):
 	for status in status_list:
 		if status.name == new_status.name:
@@ -224,8 +230,34 @@ func player_attack(move_index):
 	if not is_inside_tree():
 		return
 
+func can_enemy_act() -> bool:
+	if has_status(enemy_statuses, "Frozen"):
+		var enemy_name = current_enemy.name if current_enemy != null else "Enemy"
+		battle_log.text = enemy_name + " is frozen and cannot attack!"
+		return false
+	
+	if has_status(enemy_statuses, "Paralyzed"):
+		if randf() < 0.5:
+			var enemy_name = current_enemy.name if current_enemy != null else "Enemy"
+			battle_log.text = enemy_name + " is paralyzed and cannot move!"
+			return false
+	
+	return true
+
 func enemy_turn():
 	apply_status_effects(player_statuses, true)
+	
+	if check_battle_end():
+		return
+	
+	if not can_enemy_act():
+		player_turn = true
+		current_energy = max_energy
+		used_move_indices_this_turn.clear()
+		set_buttons_enabled(true)
+		update_ui()
+		end_turn_button.disabled = false
+		return
 	
 	var damage = enemy_damage
 	player_hp -= damage
