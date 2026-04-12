@@ -21,6 +21,8 @@ enum NodeType {
 var current_nodes: Array[int] = []
 
 func _ready() -> void:
+	AudioManager.play_music("res://assets/audio/music/menu.ogg")
+	
 	if RunManager.selected_spiremon_name == "":
 		get_tree().change_scene_to_file("res://scenes/starter/starter_select_scene.tscn")
 		return
@@ -104,9 +106,11 @@ func setup_single_card(card: Button, node_type: int) -> void:
 	card.pressed.connect(_on_node_button_pressed.bind(node_type))
 
 func _on_node_button_pressed(node_type: int) -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	on_node_selected(node_type)
 
 func on_node_selected(node_type: int) -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.run_depth += 1
 	
 	match node_type:

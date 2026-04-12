@@ -165,6 +165,7 @@ func flash_sprite(sprite: TextureRect) -> void:
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AudioManager.play_music("res://assets/audio/music/regularfight.ogg")
 	randomize()
 	player_hp = RunManager.player_hp
 	RunManager.player_hp = player_hp
@@ -209,6 +210,8 @@ func setup_moves():
 			move_buttons[i].visible = false
 
 func _on_move_pressed(move_index) -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
+	
 	if not player_turn:
 		return
 	
@@ -231,7 +234,8 @@ func _on_move_pressed(move_index) -> void:
 func player_attack(move_index) -> void:
 	var move = player_moves[move_index]
 	var damage = move.damage
-
+	
+	AudioManager.play_sfx("res://assets/audio/sfx/hit.ogg")
 	animate_attack(player_sprite, enemy_sprite, Vector2(30, 0))
 	await get_tree().create_timer(0.18).timeout
 	enemy_hp -= damage
@@ -282,7 +286,8 @@ func enemy_turn() -> void:
 		return
 	
 	var damage = enemy_damage
-
+	
+	AudioManager.play_sfx("res://assets/audio/sfx/attack_hit.ogg")
 	animate_attack(enemy_sprite, player_sprite, Vector2(-30, 0))
 	await get_tree().create_timer(0.18).timeout
 
@@ -350,6 +355,8 @@ func set_buttons_enabled(enabled: bool):
 		button.disabled = not enabled
 
 func _on_end_turn_pressed() -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
+	
 	if not player_turn:
 		return
 	

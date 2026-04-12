@@ -15,6 +15,7 @@ var reward_moves: Array[Move] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	background.texture = load("res://assets/backgrounds/bg1.png")
+	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	generate_rewards()
 	setup_cards()
 	skip_button.pressed.connect(_on_skip_pressed)
@@ -66,6 +67,8 @@ func setup_cards() -> void:
 		card.pressed.connect(_on_move_selected.bind(move))
 
 func _on_move_selected(move: Move):
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
+	
 	RunManager.add_move(move)
 	
 	if RunManager.pending_move == null:
@@ -75,6 +78,8 @@ func _on_move_selected(move: Move):
 		get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
 
 func _on_skip_pressed():
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
+	
 	RunManager.set_map_message(
 		RunManager.build_skipped_reward_message()
 	)

@@ -18,6 +18,7 @@ var new_move: Move
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	background.texture = load("res://assets/backgrounds/bg1.png")
+	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	new_move = RunManager.pending_move
 	setup_new_move_display()
 	setup_current_move_buttons()
@@ -27,6 +28,8 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_replace_selected(index: int) -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
+	
 	if new_move == null:
 		return
 	

@@ -13,6 +13,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	background.texture = load("res://assets/backgrounds/bg1.png")
+	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	setup_text()
 	upgrade_move_button.pressed.connect(_on_upgrade_move_pressed)
 	increase_hp_button.pressed.connect(_on_increase_hp_pressed)
@@ -22,9 +23,11 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_upgrade_move_pressed():
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	get_tree().change_scene_to_file("res://scenes/upgrade/upgrade_move_scene.tscn")
 
 func _on_increase_hp_pressed():
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.max_player_hp += 5
 	RunManager.player_hp = min(RunManager.player_hp + 5, RunManager.max_player_hp)
 	RunManager.set_map_message(

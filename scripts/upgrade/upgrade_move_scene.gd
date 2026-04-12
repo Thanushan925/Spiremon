@@ -14,6 +14,7 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	background.texture = load("res://assets/backgrounds/bg1.png")
+	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	setup_move_buttons()
 	back_button.pressed.connect(_on_back_pressed)
 
@@ -41,6 +42,7 @@ func setup_move_buttons() -> void:
 			move_buttons[i].visible = false
 
 func _on_move_button_pressed(index: int) -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	var move = RunManager.player_moves[index]
 	apply_random_upgrade(move)
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
@@ -77,4 +79,5 @@ func apply_random_upgrade(move: Move) -> void:
 			)
 
 func _on_back_pressed() -> void:
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	get_tree().change_scene_to_file("res://scenes/upgrade/upgrade_scene.tscn")

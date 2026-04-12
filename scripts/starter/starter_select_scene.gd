@@ -20,6 +20,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	load_visuals()
 	setup_text()
 	charizard_button.pressed.connect(_on_charizard_pressed)
@@ -46,13 +47,16 @@ func load_visuals():
 	venusaur_sprite.texture = load("res://assets/sprites/starters/venusaur.png")
 
 func _on_charizard_pressed():
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.set_starter_choice("Charizard", "res://resources/moves/fire_punch.tres")
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
 
 func _on_blastoise_pressed():
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.set_starter_choice("Blastoise", "res://resources/moves/water_gun.tres")
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
 
 func _on_venusaur_pressed():
+	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.set_starter_choice("Venusaur", "res://resources/moves/razor_leaf.tres")
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
