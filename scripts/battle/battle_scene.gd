@@ -39,6 +39,8 @@ var current_energy = 3
 var player_statuses: Array = []
 var enemy_statuses: Array = []
 var used_move_indices_this_turn: Array[int] = []
+var player_sprite_start_position: Vector2
+var enemy_sprite_start_position: Vector2
 
 func load_random_enemy():
 	if RunManager.is_boss_node():
@@ -146,6 +148,21 @@ func apply_status_to_target(status_list: Array, new_status: StatusEffect, target
 	status_list.append(new_status)
 	add_log(format_status_message(new_status.apply_message, target_name, new_status.name))
 
+func animate_attack(attacker: TextureRect, defender: TextureRect, attack_offset: Vector2) -> void:
+	var tween = create_tween()
+	
+	tween.tween_property(attacker, "position", attacker.position + attack_offset, 0.08)
+	tween.parallel().tween_callback(func(): flash_sprite(defender))
+	tween.tween_property(attacker, "position", attacker.position, 0.08)
+
+func flash_sprite(sprite: TextureRect) -> void:
+	var tween = create_tween()
+	
+	tween.tween_property(sprite, "modulate", Color(2.0, 2.0, 2.0, 1.0), 0.05)
+	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
+	tween.tween_property(sprite, "modulate", Color(2.0, 2.0, 2.0, 1.0), 0.05)
+	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
@@ -155,6 +172,8 @@ func _ready():
 	load_moves()
 	load_random_enemy()
 	load_battle_visuals()
+	player_sprite_start_position = player_sprite.position
+	enemy_sprite_start_position = enemy_sprite.position
 	scale_enemy()
 	update_ui()
 	setup_moves()
@@ -189,7 +208,7 @@ func setup_moves():
 		else:
 			move_buttons[i].visible = false
 
-func _on_move_pressed(move_index):
+func _on_move_pressed(move_index) -> void:
 	if not player_turn:
 		return
 	
@@ -206,12 +225,15 @@ func _on_move_pressed(move_index):
 	
 	current_energy -= move.cost
 	used_move_indices_this_turn.append(move_index)
-	player_attack(move_index)
+	await player_attack(move_index)
 	update_ui()
 
-func player_attack(move_index):
+func player_attack(move_index) -> void:
 	var move = player_moves[move_index]
 	var damage = move.damage
+
+	animate_attack(player_sprite, enemy_sprite, Vector2(30, 0))
+	await get_tree().create_timer(0.18).timeout
 	enemy_hp -= damage
 	
 	battle_log.text = move.name + " dealt " + str(damage) + " damage!\n"
@@ -244,7 +266,7 @@ func can_enemy_act() -> bool:
 	
 	return true
 
-func enemy_turn():
+func enemy_turn() -> void:
 	apply_status_effects(player_statuses, true)
 	
 	if check_battle_end():
@@ -260,6 +282,10 @@ func enemy_turn():
 		return
 	
 	var damage = enemy_damage
+
+	animate_attack(enemy_sprite, player_sprite, Vector2(-30, 0))
+	await get_tree().create_timer(0.18).timeout
+
 	player_hp -= damage
 	RunManager.player_hp = player_hp
 	
@@ -323,7 +349,7 @@ func set_buttons_enabled(enabled: bool):
 	for button in move_buttons:
 		button.disabled = not enabled
 
-func _on_end_turn_pressed():
+func _on_end_turn_pressed() -> void:
 	if not player_turn:
 		return
 	
@@ -337,7 +363,7 @@ func _on_end_turn_pressed():
 		return
 	
 	apply_status_effects(enemy_statuses, false)
-	enemy_turn()
+	await enemy_turn()
 
 func apply_status_effects(status_list: Array, is_player: bool):
 	for status in status_list:
