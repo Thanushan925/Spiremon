@@ -25,7 +25,9 @@ extends Control
 @onready var background = $Background
 
 var player_hp = 0
+var player_max_hp = 0
 var enemy_hp = 20
+var enemy_max_hp = 20
 var enemy_damage = 4
 var current_enemy: EnemyData = null
 
@@ -113,7 +115,8 @@ func scale_enemy():
 	if current_enemy == null:
 		return
 	
-	enemy_hp = current_enemy.base_hp + int(depth * 2 + depth * 0.5)
+	enemy_max_hp = current_enemy.base_hp + int(depth * 2 + depth * 0.5)
+	enemy_hp = enemy_max_hp
 	enemy_damage = current_enemy.base_damage + int(depth * 0.5)
 
 func add_log(text: String):
@@ -167,13 +170,16 @@ func flash_sprite(sprite: TextureRect) -> void:
 func _ready():
 	AudioManager.play_music("res://assets/audio/music/regularfight.ogg")
 	randomize()
-	
+		
 	player_hp = RunManager.player_hp
+	player_max_hp = RunManager.max_player_hp
 
 	if RunManager.is_blastoise():
 		player_hp += 5
+		player_max_hp += 5
 
-	RunManager.player_hp = player_hp
+	RunManager.player_hp = min(player_hp, player_max_hp)
+	player_hp = min(player_hp, player_max_hp)
 	
 	used_move_indices_this_turn.clear()
 	load_moves()
@@ -286,7 +292,7 @@ func can_enemy_act() -> bool:
 	
 func apply_starter_turn_bonus() -> void:
 	if RunManager.is_venusaur():
-		player_hp = min(player_hp + 1, RunManager.max_player_hp)
+		player_hp = min(player_hp + 1, player_max_hp)
 		RunManager.player_hp = min(player_hp, RunManager.max_player_hp)
 		add_log(RunManager.selected_spiremon_name + " restored 1 HP!")
 
@@ -360,8 +366,8 @@ func update_ui():
 	else:
 		enemy_name_label.text = "Unknown Enemy"
 	
-	player_hp_label.text = "HP: " + str(player_hp)
-	enemy_hp_label.text = "HP: " + str(enemy_hp)
+	player_hp_label.text = "HP: " + str(player_hp) + "/" + str(player_max_hp)
+	enemy_hp_label.text = "HP: " + str(enemy_hp) + "/" + str(enemy_max_hp)
 	energy_label.text = "Energy: " + str(current_energy) + "/" + str(max_energy)
 	player_status_label.text = get_status_text(player_statuses)
 	enemy_status_label.text = get_status_text(enemy_statuses)
