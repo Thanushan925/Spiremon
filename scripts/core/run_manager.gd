@@ -9,8 +9,9 @@ var map_message = ""
 var selected_spiremon_name = ""
 var selected_starter_move_path = ""
 var max_run_depth = 10
-var boss_depth = 10
 var used_enemy_names: Array[String] = []
+var pending_boss_fight = false
+var final_map_heal_used = false
 
 func reset_run():
 	run_depth = 0
@@ -22,6 +23,8 @@ func reset_run():
 	selected_spiremon_name = ""
 	selected_starter_move_path = ""
 	used_enemy_names.clear()
+	pending_boss_fight = false
+	final_map_heal_used = false
 
 func set_map_message(message: String):
 	map_message = message
@@ -52,14 +55,11 @@ func build_max_hp_upgrade_message(amount: int, new_max_hp: int) -> String:
 func build_move_upgrade_message(move_name: String, upgrade_text: String) -> String:
 	return move_name + " was upgraded: " + upgrade_text
 	
-func is_boss_node() -> bool:
-	return run_depth >= boss_depth
-
-func is_pre_boss_node() -> bool:
-	return run_depth == boss_depth - 1
+func is_final_map_node() -> bool:
+	return run_depth == max_run_depth - 1
 
 func get_progress_text() -> String:
-	return str(run_depth) + "/" + str(max_run_depth)
+	return str(run_depth + 1) + "/" + str(max_run_depth)
 
 func set_starter_choice(spiremon_name: String, move_path: String):
 	selected_spiremon_name = spiremon_name

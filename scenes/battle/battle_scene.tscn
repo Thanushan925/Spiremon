@@ -40,6 +40,7 @@ theme_override_constants/separation = 20
 
 [node name="TopBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 12
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/TopBar"]
@@ -54,19 +55,27 @@ theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="BattleAreaWrapper" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 260)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 220
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BattleAreaWrapper"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 1200.0
+offset_bottom = 270.0
+size_flags_vertical = 3
+theme_override_constants/separation = 180
 alignment = 1
 
-[node name="PlayerSide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PlayerGroup" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
-[node name="PlayerSprite" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerSide"]
-custom_minimum_size = Vector2(220, 220)
+[node name="PlayerSprite" type="TextureRect" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup"]
+custom_minimum_size = Vector2(260, 260)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -74,48 +83,60 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PlayerName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerSide"]
+[node name="PlayerSide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_constants/separation = 6
+
+[node name="PlayerName" type="Label" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 
-[node name="PlayerHP" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerSide"]
+[node name="PlayerHP" type="Label" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 
-[node name="PlayerStatus" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/PlayerSide"]
+[node name="PlayerStatus" type="Label" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Status: None"
 
-[node name="EnemySide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="EnemyGroup" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
-[node name="EnemySprite" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/EnemySide"]
-custom_minimum_size = Vector2(220, 220)
+[node name="EnemySide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_constants/separation = 6
+
+[node name="EnemyName" type="Label" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+
+[node name="EnemyHP" type="Label" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 2
+
+[node name="EnemyStatus" type="Label" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Status: None"
+horizontal_alignment = 2
+
+[node name="EnemySprite" type="TextureRect" parent="MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup"]
+custom_minimum_size = Vector2(260, 260)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
-
-[node name="EnemyName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/EnemySide"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 2
-
-[node name="EnemyHP" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/EnemySide"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-horizontal_alignment = 2
-
-[node name="EnemyStatus" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/EnemySide"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Status: None"
-horizontal_alignment = 2
 
 [node name="BottomPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 220)
@@ -140,28 +161,36 @@ theme_override_constants/v_separation = 12
 columns = 2
 
 [node name="Move1" type="Button" parent="MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 70)
+custom_minimum_size = Vector2(240, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
+autowrap_mode = 3
+clip_text = true
 
 [node name="Move2" type="Button" parent="MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 70)
+custom_minimum_size = Vector2(240, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
+autowrap_mode = 3
+clip_text = true
 
 [node name="Move3" type="Button" parent="MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 70)
+custom_minimum_size = Vector2(240, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
+autowrap_mode = 3
+clip_text = true
 
 [node name="Move4" type="Button" parent="MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(240, 70)
+custom_minimum_size = Vector2(240, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
+autowrap_mode = 3
+clip_text = true
 
 [node name="EndTurn" type="Button" parent="MarginContainer/VBoxContainer/BottomPanel/VBoxContainer"]
 custom_minimum_size = Vector2(220, 55)

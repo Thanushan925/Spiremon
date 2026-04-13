@@ -1,16 +1,16 @@
 extends Control
 
-@onready var player_name_label = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerName
-@onready var enemy_name_label = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemyName
+@onready var player_name_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide/PlayerName
+@onready var enemy_name_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide/EnemyName
 
-@onready var player_hp_label = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerHP
-@onready var enemy_hp_label = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemyHP
+@onready var player_hp_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide/PlayerHP
+@onready var enemy_hp_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide/EnemyHP
 
-@onready var player_status_label = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerStatus
-@onready var enemy_status_label = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemyStatus
+@onready var player_status_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide/PlayerStatus
+@onready var enemy_status_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide/EnemyStatus
 
-@onready var player_sprite = $MarginContainer/VBoxContainer/HBoxContainer/PlayerSide/PlayerSprite
-@onready var enemy_sprite = $MarginContainer/VBoxContainer/HBoxContainer/EnemySide/EnemySprite
+@onready var player_sprite = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSprite
+@onready var enemy_sprite = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySprite
 
 @onready var move_buttons = [
 	$MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/GridContainer/Move1,
@@ -23,6 +23,7 @@ extends Control
 @onready var battle_log = $MarginContainer/VBoxContainer/BottomPanel/VBoxContainer/BattleLog
 @onready var energy_label = $MarginContainer/VBoxContainer/TopBar/PanelContainer/Energy
 @onready var background = $Background
+@onready var battle_area_wrapper = $MarginContainer/VBoxContainer/BattleAreaWrapper
 
 var player_hp = 0
 var player_max_hp = 0
@@ -45,8 +46,10 @@ var player_sprite_start_position: Vector2
 var enemy_sprite_start_position: Vector2
 var player_defending = false
 
+var battle_area_start_position: Vector2
+
 func load_random_enemy():
-	if RunManager.is_boss_node():
+	if RunManager.pending_boss_fight:
 		current_enemy = load("res://resources/enemies/espurr.tres")
 		return
 	
@@ -152,21 +155,33 @@ func apply_status_to_target(status_list: Array, new_status: StatusEffect, target
 	status_list.append(new_status)
 	add_log(format_status_message(new_status.apply_message, target_name, new_status.name))
 
-func animate_attack(attacker: TextureRect, defender: TextureRect, attack_offset: Vector2) -> void:
+func animate_attack(attacker: TextureRect, defender: TextureRect, attack_offset: Vector2, strong_hit: bool = false) -> void:
 	var tween = create_tween()
 	
 	tween.tween_property(attacker, "position", attacker.position + attack_offset, 0.08)
-	tween.parallel().tween_callback(func(): flash_sprite(defender))
+	tween.parallel().tween_callback(func(): flash_sprite(defender, strong_hit))
 	tween.tween_property(attacker, "position", attacker.position, 0.08)
 
-func flash_sprite(sprite: TextureRect) -> void:
+func flash_sprite(sprite: TextureRect, strong: bool = false) -> void:
+	var flash_color = Color(2.0, 2.0, 2.0, 1.0)
+	
+	if strong:
+		flash_color = Color(3.0, 3.0, 3.0, 1.0)
+	
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate", flash_color, 0.05)
+	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
+	tween.tween_property(sprite, "modulate", flash_color, 0.05)
+	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
+	
+func shake_screen(intensity: float = 8.0, duration: float = 0.12) -> void:
 	var tween = create_tween()
 	
-	tween.tween_property(sprite, "modulate", Color(2.0, 2.0, 2.0, 1.0), 0.05)
-	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
-	tween.tween_property(sprite, "modulate", Color(2.0, 2.0, 2.0, 1.0), 0.05)
-	tween.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.05)
-	
+	tween.tween_property(battle_area_wrapper, "position", battle_area_start_position + Vector2(intensity, 0), duration * 0.25)
+	tween.tween_property(battle_area_wrapper, "position", battle_area_start_position + Vector2(-intensity, 0), duration * 0.25)
+	tween.tween_property(battle_area_wrapper, "position", battle_area_start_position + Vector2(intensity * 0.5, 0), duration * 0.25)
+	tween.tween_property(battle_area_wrapper, "position", battle_area_start_position, duration * 0.25)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	AudioManager.play_music("res://assets/audio/music/regularfight.ogg")
@@ -185,10 +200,16 @@ func _ready():
 	used_move_indices_this_turn.clear()
 	load_moves()
 	load_random_enemy()
+	RunManager.pending_boss_fight = false
+	if current_enemy != null and current_enemy.name == "Espurr":
+		AudioManager.play_music("res://assets/audio/music/bossfight.ogg")
+	else:
+		AudioManager.play_music("res://assets/audio/music/run_bgm.ogg")
 	load_battle_visuals()
 	
 	player_sprite_start_position = player_sprite.position
 	enemy_sprite_start_position = enemy_sprite.position
+	battle_area_start_position = battle_area_wrapper.position
 	
 	scale_enemy()
 	update_ui()
@@ -334,7 +355,13 @@ func enemy_turn() -> void:
 		add_log(RunManager.selected_spiremon_name + " reduced the damage with Defend!")
 
 	AudioManager.play_sfx("res://assets/audio/sfx/enemyhit.ogg")
-	animate_attack(enemy_sprite, player_sprite, Vector2(-30, 0))
+
+	var strong_boss_hit = current_enemy != null and current_enemy.name == "Espurr"
+	animate_attack(enemy_sprite, player_sprite, Vector2(-30, 0), strong_boss_hit)
+
+	if strong_boss_hit:
+		shake_screen(12.0, 0.14)
+
 	await get_tree().create_timer(0.18).timeout
 
 	player_hp -= damage

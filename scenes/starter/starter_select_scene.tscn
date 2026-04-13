@@ -53,7 +53,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="StarterCard1" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 420)
+custom_minimum_size = Vector2(300, 450)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard1"]
@@ -81,7 +81,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="StarterCard2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 420)
+custom_minimum_size = Vector2(300, 450)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard2"]
@@ -109,7 +109,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="StarterCard3" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 420)
+custom_minimum_size = Vector2(300, 450)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/StarterCard3"]

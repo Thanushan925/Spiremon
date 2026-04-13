@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvyprk1crulyk"]
+
+[ext_resource type="Script" uid="uid://dd5xiogu3wxxs" path="res://scripts/ui/how_to_play_scene.gd" id="1_nk7c0"]
+
+[node name="HowToPlayScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nk7c0")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(700, 420)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "How to Play"
+horizontal_alignment = 1
+
+[node name="Instructions" type="Label" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Choose a path on the map to progress through the run.
+
+Battle:
+Defeat an enemy to earn a move reward.
+
+Heal:
+Restore your HP.
+
+Upgrade:
+Improve a move or increase max HP.
+
+Combat:
+Use moves until you run out of energy or choose End Turn.
+Some moves apply status effects.
+Defend reduces the next enemy hit.
+
+Reach the final boss at level 10 and win the run."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Start" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 50)
+layout_mode = 2
+text = "Continue"
+
+[node name="Back" type="Button" parent="MarginContainer/CenterContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 50)
+layout_mode = 2
+text = "Back"
