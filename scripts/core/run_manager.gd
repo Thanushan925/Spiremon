@@ -66,6 +66,7 @@ func set_starter_choice(spiremon_name: String, move_path: String):
 	selected_starter_move_path = move_path
 	player_moves.clear()
 	player_moves.append(load(move_path))
+	player_moves.append(load("res://resources/moves/defend.tres"))
 
 func add_move(move: Move):
 	if player_moves.size() < 4:

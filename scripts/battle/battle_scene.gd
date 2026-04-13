@@ -43,6 +43,7 @@ var enemy_statuses: Array = []
 var used_move_indices_this_turn: Array[int] = []
 var player_sprite_start_position: Vector2
 var enemy_sprite_start_position: Vector2
+var player_defending = false
 
 func load_random_enemy():
 	if RunManager.is_boss_node():
@@ -211,10 +212,15 @@ func setup_moves():
 	for i in range(move_buttons.size()):
 		if i < player_moves.size():
 			var move = player_moves[i]
-			var button_text = move.name + "\nDMG " + str(move.damage) + " | COST " + str(move.cost)
-			
-			if move.status != null:
-				button_text += "\n" + move.status.name + " " + str(int(move.status_chance * 100)) + "%"
+			var button_text = ""
+
+			if move.name == "Defend":
+				button_text = "Defend\nReduce next hit by 50% | COST " + str(move.cost)
+			else:
+				button_text = move.name + "\nDMG " + str(move.damage) + " | COST " + str(move.cost)
+				
+				if move.status != null:
+					button_text += "\n" + move.status.name + " " + str(int(move.status_chance * 100)) + "%"
 			
 			move_buttons[i].text = button_text
 			move_buttons[i].visible = true
@@ -248,11 +254,19 @@ func _on_move_pressed(move_index) -> void:
 
 func player_attack(move_index) -> void:
 	var move = player_moves[move_index]
-	var damage = move.damage
 	
+	if move.name == "Defend":
+		player_defending = true
+		add_log(RunManager.selected_spiremon_name + " is defending!")
+		update_ui()
+		return
+	
+	var damage = move.damage
+
 	AudioManager.play_sfx("res://assets/audio/sfx/hit.ogg")
 	animate_attack(player_sprite, enemy_sprite, Vector2(30, 0))
 	await get_tree().create_timer(0.18).timeout
+
 	enemy_hp -= damage
 	
 	battle_log.text = move.name + " dealt " + str(damage) + " damage!\n"
@@ -313,7 +327,12 @@ func enemy_turn() -> void:
 		return
 	
 	var damage = enemy_damage
-	
+
+	if player_defending:
+		damage = int(ceil(damage * 0.5))
+		player_defending = false
+		add_log(RunManager.selected_spiremon_name + " reduced the damage with Defend!")
+
 	AudioManager.play_sfx("res://assets/audio/sfx/enemyhit.ogg")
 	animate_attack(enemy_sprite, player_sprite, Vector2(-30, 0))
 	await get_tree().create_timer(0.18).timeout
@@ -322,7 +341,7 @@ func enemy_turn() -> void:
 	RunManager.player_hp = player_hp
 	
 	var enemy_name = current_enemy.name if current_enemy != null else "Enemy"
-	battle_log.text = enemy_name + " dealt " + str(damage) + " damage!"
+	battle_log.text = enemy_name + " dealt " + str(damage) + " damage!\n"
 	
 	if check_battle_end():
 		return

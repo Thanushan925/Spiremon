@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://kx7c8xo30ujc"]
+
+[ext_resource type="Script" uid="uid://cxeqk65itk5a2" path="res://scripts/battle/move.gd" id="1_m1wcq"]
+
+[resource]
+script = ExtResource("1_m1wcq")
+name = "Defend"
+cost = 1
+metadata/_custom_type_script = "uid://cxeqk65itk5a2"
