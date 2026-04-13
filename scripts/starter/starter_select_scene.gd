@@ -36,9 +36,9 @@ func setup_text():
 	blastoise_name.text = "Blastoise"
 	venusaur_name.text = "Venusaur"
 
-	charizard_move.text = "Starts with Fire Punch"
-	blastoise_move.text = "Starts with Water Gun"
-	venusaur_move.text = "Starts with Razor Leaf"
+	charizard_move.text = "Starts with Fire Punch\nPassive: Fire moves gain +10% burn chance"
+	blastoise_move.text = "Starts with Water Gun\nPassive: Starts each battle with +5 HP"
+	venusaur_move.text = "Starts with Razor Leaf\nPassive: Restores 1 HP at the start of each turn"
 	
 func load_visuals():
 	background.texture = load("res://assets/backgrounds/bgStarter.png")

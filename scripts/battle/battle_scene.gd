@@ -167,19 +167,28 @@ func flash_sprite(sprite: TextureRect) -> void:
 func _ready():
 	AudioManager.play_music("res://assets/audio/music/regularfight.ogg")
 	randomize()
+	
 	player_hp = RunManager.player_hp
+
+	if RunManager.is_blastoise():
+		player_hp += 5
+
 	RunManager.player_hp = player_hp
+	
 	used_move_indices_this_turn.clear()
 	load_moves()
 	load_random_enemy()
 	load_battle_visuals()
+	
 	player_sprite_start_position = player_sprite.position
 	enemy_sprite_start_position = enemy_sprite.position
+	
 	scale_enemy()
 	update_ui()
 	setup_moves()
 	set_buttons_enabled(true)
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
+	
 	print("Run Depth: ", RunManager.run_depth)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -241,9 +250,14 @@ func player_attack(move_index) -> void:
 	enemy_hp -= damage
 	
 	battle_log.text = move.name + " dealt " + str(damage) + " damage!\n"
-
+	
 	if move.status != null:
-		if randf() <= move.status_chance:
+		var final_status_chance = move.status_chance
+		
+		if RunManager.is_charizard() and move.status.name == "Burn":
+			final_status_chance += 0.10
+		
+		if randf() <= final_status_chance:
 			var new_status = move.status.duplicate()
 			var enemy_name = current_enemy.name if current_enemy != null else "Enemy"
 			apply_status_to_target(enemy_statuses, new_status, enemy_name)
@@ -269,6 +283,12 @@ func can_enemy_act() -> bool:
 			return false
 	
 	return true
+	
+func apply_starter_turn_bonus() -> void:
+	if RunManager.is_venusaur():
+		player_hp = min(player_hp + 1, RunManager.max_player_hp)
+		RunManager.player_hp = min(player_hp, RunManager.max_player_hp)
+		add_log(RunManager.selected_spiremon_name + " restored 1 HP!")
 
 func enemy_turn() -> void:
 	apply_status_effects(player_statuses, true)
@@ -280,6 +300,7 @@ func enemy_turn() -> void:
 		player_turn = true
 		current_energy = max_energy
 		used_move_indices_this_turn.clear()
+		apply_starter_turn_bonus()
 		set_buttons_enabled(true)
 		update_ui()
 		end_turn_button.disabled = false
@@ -303,6 +324,7 @@ func enemy_turn() -> void:
 	player_turn = true
 	current_energy = max_energy
 	used_move_indices_this_turn.clear()
+	apply_starter_turn_bonus()
 	set_buttons_enabled(true)
 	update_ui()
 	end_turn_button.disabled = false

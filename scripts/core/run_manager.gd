@@ -73,3 +73,12 @@ func add_move(move: Move):
 	else:
 		pending_move = move
 		get_tree().change_scene_to_file("res://scenes/reward/replace_move_scene.tscn")
+
+func is_charizard() -> bool:
+	return selected_spiremon_name == "Charizard"
+
+func is_blastoise() -> bool:
+	return selected_spiremon_name == "Blastoise"
+
+func is_venusaur() -> bool:
+	return selected_spiremon_name == "Venusaur"
