@@ -28,6 +28,7 @@ func _ready() -> void:
 		return
 	
 	background.texture = load("res://assets/backgrounds/bg1.png")
+	handle_pre_boss_heal()
 	refresh_progress_label()
 	generate_nodes()
 	setup_node_cards()
@@ -113,6 +114,9 @@ func on_node_selected(node_type: int) -> void:
 	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.run_depth += 1
 	
+	RunManager.max_player_hp += 1
+	RunManager.player_hp = min(RunManager.player_hp + 1, RunManager.max_player_hp)
+	
 	match node_type:
 		NodeType.BATTLE:
 			get_tree().change_scene_to_file("res://scenes/battle/battle_scene.tscn")
@@ -138,3 +142,9 @@ func refresh_map_message() -> void:
 
 func refresh_progress_label() -> void:
 	progress_label.text = RunManager.get_progress_text()
+
+func handle_pre_boss_heal() -> void:
+	if RunManager.is_pre_boss_node():
+		var heal_amount = int(RunManager.max_player_hp * 0.75)
+		RunManager.player_hp = min(RunManager.player_hp + heal_amount, RunManager.max_player_hp)
+		RunManager.set_map_message("Your Spirémon was restored before the boss!")

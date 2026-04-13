@@ -113,8 +113,8 @@ func scale_enemy():
 	if current_enemy == null:
 		return
 	
-	enemy_hp = current_enemy.base_hp + (depth * 3)
-	enemy_damage = current_enemy.base_damage + int(depth / 2.0)
+	enemy_hp = current_enemy.base_hp + int(depth * 2 + depth * 0.5)
+	enemy_damage = current_enemy.base_damage + int(depth * 0.5)
 
 func add_log(text: String):
 	battle_log.text += text + "\n"
@@ -287,7 +287,7 @@ func enemy_turn() -> void:
 	
 	var damage = enemy_damage
 	
-	AudioManager.play_sfx("res://assets/audio/sfx/attack_hit.ogg")
+	AudioManager.play_sfx("res://assets/audio/sfx/enemyhit.ogg")
 	animate_attack(enemy_sprite, player_sprite, Vector2(-30, 0))
 	await get_tree().create_timer(0.18).timeout
 
@@ -314,6 +314,9 @@ func check_battle_end() -> bool:
 		if current_enemy != null and current_enemy.name == "Espurr":
 			get_tree().change_scene_to_file("res://scenes/ui/victory_scene.tscn")
 		else:
+			var heal_amount = int(RunManager.max_player_hp * 0.25)
+			RunManager.player_hp = min(RunManager.player_hp + heal_amount, RunManager.max_player_hp)
+			RunManager.set_map_message("You recovered " + str(heal_amount) + " HP after battle.")
 			get_tree().change_scene_to_file("res://scenes/reward/reward_scene.tscn")
 		
 		return true
