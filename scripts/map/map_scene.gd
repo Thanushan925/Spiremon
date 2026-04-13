@@ -25,7 +25,7 @@ func _ready() -> void:
 		get_tree().change_scene_to_file("res://scenes/starter/starter_select_scene.tscn")
 		return
 	
-	background.texture = load("res://assets/backgrounds/bg1.png")
+	background.texture = load("res://assets/backgrounds/map.png")
 	handle_final_map_heal()
 	refresh_progress_label()
 	generate_nodes()

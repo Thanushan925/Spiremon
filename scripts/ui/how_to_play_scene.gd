@@ -6,7 +6,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	background.texture = load("res://assets/backgrounds/bg1.png")
+	background.texture = load("res://assets/backgrounds/bgStarter.png")
 	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	start_button.pressed.connect(_on_start_pressed)
 	back_button.pressed.connect(_on_back_pressed)

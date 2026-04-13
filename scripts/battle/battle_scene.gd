@@ -111,7 +111,12 @@ func load_battle_visuals():
 			"Espurr":
 				enemy_sprite.texture = load("res://assets/sprites/enemies/espurr.png")
 	
-	background.texture = load("res://assets/backgrounds/bg1.png")
+	if current_enemy != null and current_enemy.name == "Espurr":
+		background.texture = load("res://assets/backgrounds/bossfight.png")
+	elif RunManager.run_depth >= 5:
+		background.texture = load("res://assets/backgrounds/bg2.png")
+	else:
+		background.texture = load("res://assets/backgrounds/bg1.png")
 	
 func scale_enemy():
 	var depth = RunManager.run_depth

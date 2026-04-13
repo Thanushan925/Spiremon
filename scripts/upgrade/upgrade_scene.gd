@@ -12,7 +12,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	background.texture = load("res://assets/backgrounds/bg1.png")
+	background.texture = load("res://assets/backgrounds/upgrade.png")
 	AudioManager.play_music("res://assets/audio/music/menu.ogg")
 	setup_text()
 	upgrade_move_button.pressed.connect(_on_upgrade_move_pressed)
