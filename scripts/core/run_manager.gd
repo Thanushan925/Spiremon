@@ -1,3 +1,5 @@
+# Core file for the run...goated file that handles everything and I gotta make sure to not mess this up
+
 extends Node
 
 var run_depth = 0

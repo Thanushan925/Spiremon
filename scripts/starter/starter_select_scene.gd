@@ -72,6 +72,7 @@ func set_locked_visual(sprite: TextureRect, is_unlocked: bool):
 	else:
 		sprite.modulate = Color(0.1, 0.1, 0.1, 1)
 
+# Handles the necessary functions for choosing starters
 func _on_charizard_pressed():
 	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	RunManager.set_starter_choice("Charizard", "res://resources/moves/fire_punch.tres")

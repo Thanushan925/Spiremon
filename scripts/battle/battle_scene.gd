@@ -1,5 +1,6 @@
 extends Control
 
+# Core imports
 @onready var player_name_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/PlayerGroup/PlayerSide/PlayerName
 @onready var enemy_name_label = $MarginContainer/VBoxContainer/BattleAreaWrapper/HBoxContainer/EnemyGroup/EnemySide/EnemyName
 
@@ -25,6 +26,7 @@ extends Control
 @onready var background = $Background
 @onready var battle_area_wrapper = $MarginContainer/VBoxContainer/BattleAreaWrapper
 
+# Core variables
 var player_hp = 0
 var player_max_hp = 0
 var enemy_hp = 20
@@ -48,6 +50,7 @@ var player_defending = false
 
 var battle_area_start_position: Vector2
 
+# Randomly brings in one of the nine enemy resource files as the main enemy
 func load_random_enemy():
 	if RunManager.pending_boss_fight:
 		current_enemy = load("res://resources/enemies/espurr.tres")
@@ -79,6 +82,7 @@ func load_random_enemy():
 	if current_enemy != null:
 		RunManager.used_enemy_names.append(current_enemy.name)
 	
+# Operates the sprites and related tasks with visuals
 func load_battle_visuals():
 	if RunManager.selected_spiremon_name == "Charizard":
 		player_sprite.texture = load("res://assets/sprites/starters/charizard.png")
@@ -117,6 +121,7 @@ func load_battle_visuals():
 	else:
 		background.texture = load("res://assets/backgrounds/bg1.png")
 	
+# Handles the scaling as the run goes on
 func scale_enemy():
 	var depth = RunManager.run_depth
 	
@@ -233,6 +238,7 @@ func load_moves():
 	
 	player_moves = RunManager.player_moves
 
+# Handles the move setups for the user to use
 func setup_moves():
 	for i in range(move_buttons.size()):
 		if i < player_moves.size():
@@ -329,6 +335,7 @@ func can_enemy_act() -> bool:
 	
 	return true
 	
+# Spiremon's passive ability
 func apply_starter_turn_bonus() -> void:
 	if RunManager.is_venusaur():
 		player_hp = min(player_hp + 1, player_max_hp)

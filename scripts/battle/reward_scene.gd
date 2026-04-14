@@ -25,6 +25,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+# Creates a list of possible new moves
 func generate_rewards() -> void:
 	var all_moves = [
 		load("res://resources/moves/fire_punch.tres"),
@@ -44,6 +45,7 @@ func generate_rewards() -> void:
 		if move not in reward_moves:
 			reward_moves.append(move)
 
+# Shows the availbale rewards to choose from
 func setup_cards() -> void:
 	for i in range(move_cards.size()):
 		var card = move_cards[i]
@@ -66,6 +68,7 @@ func setup_cards() -> void:
 		
 		card.pressed.connect(_on_move_selected.bind(move))
 
+# Handles the choice selections
 func _on_move_selected(move: Move):
 	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	

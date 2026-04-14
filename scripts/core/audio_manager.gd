@@ -1,3 +1,5 @@
+# Core file for audio management
+
 extends Node
 
 var current_music_path: String = ""

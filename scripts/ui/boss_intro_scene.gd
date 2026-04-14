@@ -1,3 +1,5 @@
+# Purely for cinematic effect lol
+
 extends Control
 
 @onready var background = $Background

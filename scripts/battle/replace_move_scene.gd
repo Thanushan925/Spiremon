@@ -1,5 +1,6 @@
 extends Control
 
+# Necessary imports
 @onready var background = $Background
 
 @onready var new_move_name_label = $MarginContainer/VBoxContainer/NewMovePanel/VBoxContainer/NewMoveName
@@ -27,6 +28,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+# Runs when user replaces a move after hitting max 4
 func _on_replace_selected(index: int) -> void:
 	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")
 	
@@ -45,6 +47,7 @@ func _on_replace_selected(index: int) -> void:
 	
 	get_tree().change_scene_to_file("res://scenes/map/map_scene.tscn")
 
+# Changes the new move implemented
 func setup_new_move_display() -> void:
 	if new_move == null:
 		new_move_name_label.text = "No Move"
@@ -60,6 +63,7 @@ func setup_new_move_display() -> void:
 	else:
 		new_move_status_label.text = "No Status"
 
+# Cleans up moves displayed
 func setup_current_move_buttons() -> void:
 	var current_moves = RunManager.player_moves
 	

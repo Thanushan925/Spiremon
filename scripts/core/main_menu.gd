@@ -1,3 +1,5 @@
+# Core file for the main menu
+
 extends Control
 
 @onready var background = $Background

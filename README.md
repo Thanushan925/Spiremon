@@ -5,6 +5,8 @@ Spirémon is a turn-based roguelike inspired by Slay the Spire and Pokémon. Pla
 
 The game focuses on strategic decision-making, resource management, and adapting to increasing difficulty throughout each run.
 
+Video Essay: https://youtu.be/-ld9M77pqr8
+
 ---
 
 ## How to Run
