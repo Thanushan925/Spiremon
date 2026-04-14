@@ -50,6 +50,10 @@ func generate_nodes() -> void:
 	
 	if randf() < 0.5:
 		current_nodes.append(NodeType.UPGRADE)
+	
+	if RunManager.run_depth >= 5 and not RunManager.unlocked_starters["Blastoise"]:
+		RunManager.unlocked_starters["Blastoise"] = true
+		RunManager.set_map_message("Blastoise has been unlocked!")
 
 func setup_node_cards() -> void:
 	var card_map = {

@@ -13,6 +13,12 @@ var used_enemy_names: Array[String] = []
 var pending_boss_fight = false
 var final_map_heal_used = false
 
+var unlocked_starters = {
+	"Charizard": true,
+	"Blastoise": false,
+	"Venusaur": false
+}
+
 func reset_run():
 	run_depth = 0
 	max_player_hp = 30

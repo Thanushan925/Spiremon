@@ -21,11 +21,31 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	AudioManager.play_music("res://assets/audio/music/menu.ogg")
+	
+	blastoise_button.disabled = not RunManager.unlocked_starters["Blastoise"]
+	venusaur_button.disabled = not RunManager.unlocked_starters["Venusaur"]
+	
 	load_visuals()
 	setup_text()
+	
 	charizard_button.pressed.connect(_on_charizard_pressed)
 	blastoise_button.pressed.connect(_on_blastoise_pressed)
 	venusaur_button.pressed.connect(_on_venusaur_pressed)
+	
+	blastoise_button.disabled = not RunManager.unlocked_starters["Blastoise"]
+	venusaur_button.disabled = not RunManager.unlocked_starters["Venusaur"]
+
+	set_locked_visual(charizard_sprite, RunManager.unlocked_starters["Charizard"])
+	set_locked_visual(blastoise_sprite, RunManager.unlocked_starters["Blastoise"])
+	set_locked_visual(venusaur_sprite, RunManager.unlocked_starters["Venusaur"])
+	
+	if not RunManager.unlocked_starters["Blastoise"]:
+		blastoise_name.text = "Locked"
+		blastoise_move.text = "Reach 5/10 to unlock"
+
+	if not RunManager.unlocked_starters["Venusaur"]:
+		venusaur_name.text = "Locked"
+		venusaur_move.text = "Defeat the final boss to unlock"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -45,6 +65,12 @@ func load_visuals():
 	charizard_sprite.texture = load("res://assets/sprites/starters/charizard.png")
 	blastoise_sprite.texture = load("res://assets/sprites/starters/blastoise.png")
 	venusaur_sprite.texture = load("res://assets/sprites/starters/venusaur.png")
+	
+func set_locked_visual(sprite: TextureRect, is_unlocked: bool):
+	if is_unlocked:
+		sprite.modulate = Color(1, 1, 1, 1)
+	else:
+		sprite.modulate = Color(0.1, 0.1, 0.1, 1)
 
 func _on_charizard_pressed():
 	AudioManager.play_button_sfx("res://assets/audio/sfx/button.ogg")

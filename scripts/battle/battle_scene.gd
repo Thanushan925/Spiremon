@@ -71,7 +71,6 @@ func load_random_enemy():
 		if enemy.name not in RunManager.used_enemy_names:
 			available_enemies.append(enemy)
 	
-	# fallback safety: if somehow all have been used, allow reuse
 	if available_enemies.is_empty():
 		available_enemies = enemy_pool.duplicate()
 	
