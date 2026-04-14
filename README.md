@@ -38,14 +38,14 @@ Optional:
 2. Open a terminal in the extracted folder
 3. Run:
    ```bash
-   chmod +x Spiremon.exe.x86_64
-   chmod +x Spiremon.exe.sh
-   ./Spiremon.exe.sh
+   chmod +x Spiremon.x86_64
+   chmod +x Spiremon.sh
+   ./Spiremon.sh
 
 Expected contents:
-- `Spiremon.exe.x86_64`
-- `Spiremon.exe.pck`
-- `Spiremon.exe.sh`
+- `Spiremon.x86_64`
+- `Spiremon.pck`
+- `Spiremon.sh`
 
 ### macOS
 1. Download and extract `Spiremon-macos.zip`
