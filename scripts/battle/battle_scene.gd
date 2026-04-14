@@ -213,7 +213,7 @@ func _ready():
 	if current_enemy != null and current_enemy.name == "Espurr":
 		AudioManager.play_music("res://assets/audio/music/bossfight.ogg")
 	else:
-		AudioManager.play_music("res://assets/audio/music/run_bgm.ogg")
+		AudioManager.play_music("res://assets/audio/music/regularfight.ogg")
 	load_battle_visuals()
 	
 	player_sprite_start_position = player_sprite.position

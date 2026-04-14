@@ -9,26 +9,58 @@ Video Essay: https://youtu.be/-ld9M77pqr8
 
 ---
 
+## Downloads
+Prebuilt game downloads for each platform are available in the GitHub Releases section of this repository.
+
+Recommended release asset names:
+- Spiremon-windows.zip
+- Spiremon-linux.zip
+- Spiremon-macos.zip
+
+---
+
 ## How to Run
 
 ### Windows
-1. Navigate to the `builds/windows` folder
-2. Run `Spiremon.exe`
+1. Download and extract `Spiremon-windows.zip`
+2. Open the extracted folder
+3. Run `Spiremon.exe`
+
+Expected contents:
+- `Spiremon.exe`
+- `Spiremon.pck`
+
+Optional:
+- `Spiremon.console.exe` may also be included for debugging purposes
 
 ### Linux
-1. Navigate to the `builds/linux` folder
-2. Open a terminal in that directory
+1. Download and extract `Spiremon-linux.zip`
+2. Open a terminal in the extracted folder
 3. Run:
-   chmod +x Spiremon.x86_64
-   ./Spiremon.x86_64
+   ```bash
+   chmod +x Spiremon.exe.x86_64
+   chmod +x Spiremon.exe.sh
+   ./Spiremon.exe.sh
 
-### macOS (beta)
-1. Navigate to the `builds/macos` folder
-2. Unzip the file if needed
-3. Right-click the `.app` file and click **Open**
-   - If macOS blocks the app, go to:
-     System Settings → Privacy & Security → Allow Anyway
-4. You might have to open through Godot
+Expected contents:
+- `Spiremon.exe.x86_64`
+- `Spiremon.exe.pck`
+- `Spiremon.exe.sh`
+
+### macOS
+1. Download and extract `Spiremon-macos.zip`
+2. Open the extracted folder
+3. Right-click `Spiremon.app` and click Open
+    - If macOS warns that the app is from an unidentified developer, click Open again or go to:
+    -  System Settings → Privacy & Security → Open Anyway
+  
+Expected contents:
+- `Spiremon.app`
+- `Spiremon.command`
+
+Note:
+The macOS build is not notarized, so Gatekeeper may warn or block it on first launch.
+If needed, `Spiremon.command` can be used as a fallback launcher.
 
 ---
 
